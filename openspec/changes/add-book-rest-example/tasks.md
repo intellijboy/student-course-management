@@ -2,18 +2,18 @@
 
 ## 1. REST 层实现
 
-- [ ] 1.1 创建 `cn.intellijboy.demo.web.Book`（record: id、title、author）作为 JSON 载体，验证 `./gradlew compileJava` 通过
-- [ ] 1.2 创建 `cn.intellijboy.demo.web.BookController`（内嵌 `ConcurrentHashMap` + `AtomicLong` 内存存储），实现查询端点：`GET /api/books` 返回 200 与列表、`GET /api/books/{id}` 返回 200 与 Book 或 404，验证编译通过
-- [ ] 1.3 在 `BookController` 中实现写端点：`POST /api/books` 返回 201 与新建 Book（id 服务端生成）、`PUT /api/books/{id}` 返回 200 与更新后 Book 或 404、`DELETE /api/books/{id}` 返回 204 或 404，验证编译通过
+- [x] 1.1 创建 `cn.intellijboy.demo.web.Book`（record: id、title、author）作为 JSON 载体，验证 `./gradlew compileJava` 通过
+- [x] 1.2 创建 `cn.intellijboy.demo.web.BookController`（内嵌 `ConcurrentHashMap` + `AtomicLong` 内存存储），实现查询端点：`GET /api/books` 返回 200 与列表、`GET /api/books/{id}` 返回 200 与 Book 或 404，验证编译通过
+- [x] 1.3 在 `BookController` 中实现写端点：`POST /api/books` 返回 201 与新建 Book（id 服务端生成）、`PUT /api/books/{id}` 返回 200 与更新后 Book 或 404、`DELETE /api/books/{id}` 返回 204 或 404，验证编译通过
 
 ## 2. 测试
 
-- [ ] 2.1 编写 `BookControllerTests`：覆盖列表/单个/创建/更新/删除的成功路径与 404 路径（MockMvc 模式，沿用现有 `webAppContextSetup` 写法），运行 `./gradlew test` 验证全部通过
+- [x] 2.1 编写 `BookControllerTests`：覆盖列表/单个/创建/更新/删除的成功路径与 404 路径（MockMvc 模式，沿用现有 `webAppContextSetup` 写法），运行 `./gradlew test` 验证全部通过
 
 ## 3. 集成验证
 
-- [ ] 3.1 运行 `./gradlew build`，验证编译、测试、打包全链路通过
-- [ ] 3.2 启动应用，依次请求各 Book 端点（含 404 场景）验证返回码符合预期，随后停止应用
+- [x] 3.1 运行 `./gradlew build`，验证编译、测试、打包全链路通过
+- [x] 3.2 启动应用，依次请求各 Book 端点（含 404 场景）验证返回码符合预期，随后停止应用
 
 ## Workflow follow-up
 
