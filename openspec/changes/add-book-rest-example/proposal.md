@@ -12,7 +12,7 @@
   - `POST /api/books` 创建书目，返回 201。
   - `PUT /api/books/{id}` 更新书目，不存在时返回 404。
   - `DELETE /api/books/{id}` 删除书目，不存在时返回 404，成功返回 204。
-- 使用内存存储（无数据库依赖）。
+- 使用 Controller 内嵌的内存存储（无数据库依赖，不分层）。
 - 保留现有 `GET /demo` 空壳端点不变。
 - 为新增端点补充测试。
 
@@ -26,7 +26,7 @@
 
 ## Impact
 
-- **代码**：新增 Book 模型（`cn.intellijboy.demo.domain`）、Book CRUD Controller（`cn.intellijboy.demo.web`）、内存存储仓库，以及对应 MockMvc 测试。
+- **代码**：新增 `web.Book` record（JSON 载体）与 `web.BookController`（REST 端点，内嵌内存存储），以及对应 MockMvc 测试。
 - **配置**：无新增依赖、无构建配置变更。
 - **API**：新增 `/api/books` 一组 REST 端点；`/demo` 行为不变。
 - **系统**：`openspec/specs/build-infrastructure/spec.md` 在归档时合并新增需求。
