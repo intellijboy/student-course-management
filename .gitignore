@@ -1,0 +1,41 @@
+# Gradle
+.gradle/
+build/
+**/build/
+out/
+bin/
+
+# Java compiler output
+*.class
+
+# IntelliJ IDEA / JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.settings/
+.project
+.classpath
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Test artifacts
+test-results/
+allure-results/
+jacoco.exec
+
+# Local config
+*.local
+application-local.yml
+application-local.yaml
