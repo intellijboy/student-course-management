@@ -15,6 +15,10 @@
 - [x] 3.1 运行 `./gradlew build`，验证编译、测试、打包全链路通过
 - [x] 3.2 启动应用，依次请求各 Book 端点（含 404 场景）验证返回码符合预期，随后停止应用
 
+## 4. REST 方法中文注释
+
+- [x] 4.1 为 `BookController` 各 REST 端点方法补充中文注释（说明端点用途与行为），运行 `./gradlew build` 验证编译通过
+
 ## Workflow follow-up
 
 - 变更实现并验证完成后，使用 /opsx-archive 归档该变更。
