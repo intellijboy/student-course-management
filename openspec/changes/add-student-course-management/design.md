@@ -79,18 +79,26 @@ DELETE /api/grades/{id}       删除成绩
 ```
 - 返回 JSON；领域异常映射为 HTTP 错误（`400`）。
 
-### D5. 前端：浏览器版 Vue3 + Tailwind（本地静态）
+### D5. 前端：浏览器版 Vue3 + Tailwind（本地静态，ES 模块化组件）
 ```
 src/main/resources/static/
-  |-- index.html              SPA 入口(单页)
-  |-- js/vue.global.js        本地托管的 Vue3 全局构建
-  |-- css/tailwind.css        本地托管的 Tailwind 编译产物
-  |-- app.js                  Vue 应用(学生/课程/成绩视图)
-  `-- app.css                 自定义样式
+  |-- index.html                    SPA 入口(单页, <script type="module"> 引入 app.js)
+  |-- js/vue.global.js              本地托管的 Vue3 全局构建
+  |-- css/tailwind.css              本地托管的 Tailwind 编译产物
+  |-- app.css                       自定义样式
+  |-- app.js                        入口模块(createApp + 挂载)
+  `-- modules/
+      |-- api.js                    请求工具模块(封装 fetch + 错误处理)
+      |-- AppComponent.js           根组件(标签页切换 + 全局提示)
+      |-- StudentList.js            学生管理组件
+      |-- CourseList.js             课程管理组件
+      `-- GradeList.js              成绩管理组件
 ```
-- 浏览器版 Vue3（script 标签引入）无 npm/Vite 构建；Tailwind 使用本地静态文件。
+- 浏览器版 Vue3（script 引入全局构建）无 npm/Vite 构建；Tailwind 使用本地静态文件。
+- 前端采用**原生 ES 模块化组件设计**：`<script type="module">` + `import/export` 拆分模块，每个视图一个组件，共享 `api.js` 请求工具；组件用选项对象 + `template` 字符串定义（浏览器版 Vue3 全局构建含编译器，无需 SFC 编译）。
 - SPA 通过 fetch 调用 REST API（同源，无跨域问题）。
 - **备选**：CDN 引入 Vue/Tailwind——国内网络不可靠，采用本地托管。
+- **备选**：引入 Vite/npm 构建与 `.vue` 单文件组件——推翻"无构建步骤"约束，不采用。
 
 ### D6. 测试
 - 领域规则单元测试（成绩范围、唯一性）。
