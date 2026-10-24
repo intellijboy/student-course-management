@@ -1,0 +1,27 @@
+/* ============================================
+   学生 / 课程 / 成绩 管理系统自定义样式
+   ============================================ */
+
+html {
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #f3f4f6;
+}
+
+/* 表格内联链接按钮 */
+button {
+  cursor: pointer;
+}
+
+/* 弹窗遮罩层过渡 */
+.fixed.inset-0 {
+  animation: fadeIn 0.15s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
