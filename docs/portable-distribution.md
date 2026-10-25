@@ -83,6 +83,21 @@ open student-course-management.app
 - Windows 平台构建产出 `.zip`；Linux / macOS 平台构建产出 `.tar.gz`。
 - 三平台压缩包由 `.github/workflows/packaging.yml` CI 矩阵（`ubuntu-latest` / `windows-latest` / `macos-latest`）自动构建并上传为构建产物，产物命名 `student-course-management-<os>-<arch>.zip|tar.gz`。
 
+### 从 GitHub Actions 下载产物
+
+1. 打开仓库 Actions 页面（`https://github.com/<owner>/student-course-management/actions`），找到 **Portable Distribution Packaging** 工作流最近的绿色运行记录并进入详情页。
+2. 页面底部 **Artifacts** 区域有三个产物：`linux-x64`、`windows-x64`、`mac-aarch64`，点击即下载（GitHub 以 zip 形式打包交付）。
+3. 命令行下载：
+
+   ```bash
+   # 下载单个平台（run-id 见 Actions 页面 URL 或 `gh run list`）
+   gh run download <run-id> -n windows-x64 -D <保存目录>
+   # 或下载全部三平台
+   gh run download <run-id> -D <保存目录>
+   ```
+
+4. GitHub 下载的产物为 zip 包装：先解压外层 zip 得到实际的 `.zip` / `.tar.gz`，再按上文「目标机运行方式」解压应用目录并运行。
+
 ## 注意事项
 
 - **应用数据**：当前后端使用 H2 内存数据库，应用重启后数据清空，属于既有设计（本变更不涉及持久化改造）。
