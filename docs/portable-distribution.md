@@ -98,6 +98,22 @@ open student-course-management.app
 
 4. GitHub 下载的产物为 zip 包装：先解压外层 zip 得到实际的 `.zip` / `.tar.gz`，再按上文「目标机运行方式」解压应用目录并运行。
 
+### 从 GitHub Releases 下载产物（对外分发）
+
+工作流支持**自动发布**：打 tag（`v*`）或手动触发后，三平台压缩包会发布到仓库 **Releases** 页面，对外提供公开下载链接。
+
+触发方式：
+
+```bash
+# 方式一：打 tag 自动发布
+git tag v0.1.0
+git push origin v0.1.0
+
+# 方式二：手动触发（Actions → Portable Distribution Packaging → Run workflow，填写 tag_name）
+```
+
+> 注意：对外公开下载需要仓库为**公开仓库**（私有仓库的 Releases 仅协作者可见）。
+
 ## 注意事项
 
 - **应用数据**：当前后端使用 H2 内存数据库，应用重启后数据清空，属于既有设计（本变更不涉及持久化改造）。
