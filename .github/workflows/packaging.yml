@@ -2,11 +2,18 @@ name: Portable Distribution Packaging
 
 # 便携分发包 CI 矩阵：Windows/Linux/macOS 三平台分别构建自带 Java 运行时的便携分发包，
 # 产出 <app>-<os>-<arch>.zip|tar.gz 并上传为构建产物。
+# 打 tag（v*）或手动触发时，额外将三平台产物发布到 GitHub Releases。
 
 on:
   push:
     branches: [ "main" ]
+    tags: [ "v*" ]
   workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "发布到 GitHub Releases 的 tag 名称（如 v0.1.0）"
+        required: false
+        default: ""
 
 jobs:
   package:
@@ -70,3 +77,39 @@ jobs:
           name: ${{ matrix.os-name }}-${{ matrix.arch }}
           path: ${{ env.artifact }}
           if-no-files-found: error
+
+  release:
+    name: publish-release
+    # 仅当打 tag（v*）或手动触发时执行发布
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all platform artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Compute release tag
+        id: tag
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ inputs.tag_name }}" ]; then
+            echo "tag=${{ inputs.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=snapshot-${GITHUB_RUN_ID}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: ${{ steps.tag.outputs.tag }}
+          files: |
+            dist/*/*.zip
+            dist/*/*.tar.gz
+          fail_on_unmatched_files: true
