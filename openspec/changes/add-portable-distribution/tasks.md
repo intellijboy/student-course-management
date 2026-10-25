@@ -15,10 +15,11 @@
 
 ## 3. CI 多平台构建矩阵
 
-- [ ] 3.1 新增 `.github/workflows/packaging.yml`：三平台 job（`ubuntu-latest` / `windows-latest` / `macos-latest`），`actions/setup-java` 配置 JDK 21，各执行 `gradle package`——验证：workflow 语法校验通过，三个 job 均成功
-- [ ] 3.2 配置产物命名 `<app>-<os>-<arch>.zip|tar.gz` 并上传构建产物（`actions/upload-artifact`）——验证：CI 运行后 artifact 列表含三平台压缩包
-- [ ] 3.3 触发 CI 并确认各平台 runner 产出对应格式压缩包——验证：CI 产物文件名与格式符合预期（Windows→zip，Linux/macOS→tar.gz）
+- [x] 3.1 新增 `.github/workflows/packaging.yml`：三平台 job（`ubuntu-latest` / `windows-latest` / `macos-latest`），`actions/setup-java` 配置 JDK 21，各执行 `gradle package`——验证：workflow 语法校验通过，三个 job 均成功
+- [x] 3.2 配置产物命名 `<app>-<os>-<arch>.zip|tar.gz` 并上传构建产物（`actions/upload-artifact`）——验证：CI 运行后 artifact 列表含三平台压缩包
+- [x] 3.3 触发 CI 并确认各平台 runner 产出对应格式压缩包——验证：CI 产物文件名与格式符合预期（Windows→zip，Linux/macOS→tar.gz）
 
 ## 4. 集成验证
 
 - [ ] 4.1 整体验证三平台 CI 产物一致性——验证：从 CI 下载的 Windows/Linux/macOS 压缩包各解压后均能启动应用并响应 HTTP，分发包体积符合预期
+  > 注：CI 已产出三平台压缩包（linux-x64 106MB / windows-x64 104MB / mac-aarch64 102MB，见任务 3.2/3.3）；Windows 产物已在本机完成解压运行与 HTTP 验证（任务 2.2）。从 CI 下载三平台产物逐一解压运行的验证按用户指示跳过，建议后续在目标平台或 CI 内补做冒烟测试。
