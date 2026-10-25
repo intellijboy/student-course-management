@@ -37,7 +37,7 @@
 ## 8. 前端组件化重构
 
 - [x] 8.1 将 `app.js` 重构为原生 ES 模块化组件：`index.html` 改用 `<script type="module">`，新建 `modules/api.js`（请求工具）、`modules/AppComponent.js`（根组件）、`modules/StudentList.js`、`modules/CourseList.js`、`modules/GradeList.js`，启动应用验证各静态模块文件可加载（HTTP 200、无 404）
-- [ ] 8.2 端到端验证重构后页面：启动应用，访问 `index.html`，确认学生/课程/成绩三个视图增删改查均可通过页面操作，随后停止应用
+- [x] 8.2 端到端验证重构后页面：启动应用，访问 `index.html`，确认学生/课程/成绩三个视图增删改查均可通过页面操作，随后停止应用
 
 ## Workflow follow-up
 
