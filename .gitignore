@@ -45,3 +45,5 @@ application-local.yaml
 .claude/
 .opencode/
 # <<< teamai tool dirs <<<
+
+docs/knowledge
