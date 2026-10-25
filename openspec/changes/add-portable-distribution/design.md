@@ -43,6 +43,13 @@
 
 JavaPackager 默认按"应用 jar + 运行时依赖"拆开打包；Spring Boot 的 bootJar 是自包含胖 jar，分发包内应只含 bootJar，避免依赖重复与体积膨胀。落地第一步用 spike 验证插件对胖 jar 的处理方式（是否需关闭依赖复制 / 显式指向 bootJar 产物）。
 
+**Spike 结论（已实现落地）：**
+- `runnableJar` 显式指向 `bootJar` 产物，`copyDependencies = false`，分发包内仅含一份 bootJar，无重复依赖 jar。
+- 因 `copyDependencies = false` 时插件不会自动生成类路径，需显式配置 `classpath("<name>-<version>.jar")` 指向分发包内的 bootJar。
+- **启动入口采用 `org.springframework.boot.loader.launch.JarLauncher`**：Spring Boot fat jar 为嵌套结构（`BOOT-INF/`），JavaPackager 生成的启动命令（launch4j exe、Linux/macOS 启动脚本）均以 `java -cp <jar> <mainClass>` 方式启动，无法直接加载 fat jar 内的应用主类；JarLauncher 从 MANIFEST 的 Start-Class 加载应用，行为与 `java -jar` 一致。
+- `winConfig.wrapJar` 与 `linuxConfig.wrapJar` 设为 `false`（默认 `true` 会把 jar 嵌入 exe / 拼接进脚本），保证分发包内保留独立 bootJar 文件，结构为"应用 jar + 启动命令 + `jre/`"。
+- 平台压缩包命名 `<name>-<version>-<platform>.zip|tar.gz`（Gradle 插件忽略 `zipballName`/`tarballName`），CI 上传前按 `<app>-<os>-<arch>.<ext>` 重命名。
+
 ### 决策 4：GitHub Actions 三平台矩阵
 
 - 三个并行 job：`ubuntu-latest` / `windows-latest` / `macos-latest`，各执行 `gradle package`；
@@ -58,7 +65,7 @@ JavaPackager 默认按"应用 jar + 运行时依赖"拆开打包；Spring Boot �
 ## Risks / Trade-offs
 
 - [全量运行时使分发包体积达 150–300MB] → 明确为可接受代价；裁剪作为后续优化项，不动摇本期方案
-- [JavaPackager 对 Spring Boot 胖 jar 的打包方式需对齐] → 落地第一步以 spike 验证，确定关闭依赖复制或指向 bootJar
+- [JavaPackager 对 Spring Boot 胖 jar 的打包方式需对齐] → 已完成 spike 并落地：`copyDependencies=false` + `runnableJar` 指向 bootJar + 显式 `classpath` + 启动入口用 `JarLauncher` + 平台 `wrapJar=false`（见决策 3）
 - [GPL-3.0 构建期插件许可] → 若合规评审不通过，回退 jpackage 原生方案（决策 1 备选）
 - [macOS 未签名 app 被 Gatekeeper 拦截] → 接受"右键→打开"摩擦，签名公证列为非目标
 - [与 rename change 的顺序耦合] → CI 产物命名依赖最终应用名；打包 change 应排在其后，或按决策 5 显式约定命名
