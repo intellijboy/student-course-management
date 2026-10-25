@@ -1,4 +1,4 @@
-rootProject.name = "rbac-openspec-demo"
+rootProject.name = "student-course-management"
 
 pluginManagement {
     repositories {
