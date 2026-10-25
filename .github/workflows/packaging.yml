@@ -1,0 +1,71 @@
+name: Portable Distribution Packaging
+
+# 便携分发包 CI 矩阵：Windows/Linux/macOS 三平台分别构建自带 Java 运行时的便携分发包，
+# 产出 <app>-<os>-<arch>.zip|tar.gz 并上传为构建产物。
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  package:
+    name: package-${{ matrix.os-name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            os-name: linux
+            arch: x64
+            ext: tar.gz
+          - runner: windows-latest
+            os-name: windows
+            arch: x64
+            ext: zip
+          - runner: macos-latest
+            os-name: mac
+            arch: aarch64
+            ext: tar.gz
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Build portable distribution
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            ./gradlew.bat clean package
+          else
+            ./gradlew clean package
+          fi
+
+      - name: Rename archive to <app>-<os>-<arch>.<ext>
+        shell: bash
+        run: |
+          set -euo pipefail
+          APP=student-course-management
+          PLATFORM=${{ matrix.os-name }}
+          EXT=${{ matrix.ext }}
+          if [ "$EXT" = "zip" ]; then
+            FILE=$(ls build/${APP}-*-${PLATFORM}.zip | head -1)
+          else
+            FILE=$(ls build/${APP}-*-${PLATFORM}.tar.gz | head -1)
+          fi
+          DEST="build/${APP}-${PLATFORM}-${{ matrix.arch }}.${EXT}"
+          mv "$FILE" "$DEST"
+          echo "artifact=$DEST" >> "$GITHUB_ENV"
+
+      - name: Upload portable distribution artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os-name }}-${{ matrix.arch }}
+          path: ${{ env.artifact }}
+          if-no-files-found: error

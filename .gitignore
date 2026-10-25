@@ -39,3 +39,9 @@ jacoco.exec
 *.local
 application-local.yml
 application-local.yaml
+
+# >>> teamai tool dirs (managed by teamai) >>>
+.teamai/
+.claude/
+.opencode/
+# <<< teamai tool dirs <<<
