@@ -11,6 +11,12 @@ public class BookLoanedEvent extends DomainEvent {
     private final ReaderId readerId;
     private final BookCopyId bookCopyId;
 
+    /**
+     * 创建借出领域事件。
+     *
+     * @param readerId 借阅读者标识
+     * @param bookCopyId 借出副本标识
+     */
     public BookLoanedEvent(ReaderId readerId, BookCopyId bookCopyId) {
         this.readerId = readerId;
         this.bookCopyId = bookCopyId;

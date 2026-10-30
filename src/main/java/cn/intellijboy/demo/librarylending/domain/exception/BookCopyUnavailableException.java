@@ -5,6 +5,11 @@ package cn.intellijboy.demo.librarylending.domain.exception;
  */
 public class BookCopyUnavailableException extends RuntimeException {
 
+    /**
+     * 创建馆藏副本不可借异常。
+     *
+     * @param message 异常描述信息
+     */
     public BookCopyUnavailableException(String message) {
         super(message);
     }

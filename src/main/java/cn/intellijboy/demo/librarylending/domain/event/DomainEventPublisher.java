@@ -5,5 +5,10 @@ package cn.intellijboy.demo.librarylending.domain.event;
  */
 public interface DomainEventPublisher {
 
+    /**
+     * 发布领域事件。
+     *
+     * @param event 待发布的领域事件
+     */
     void publish(DomainEvent event);
 }

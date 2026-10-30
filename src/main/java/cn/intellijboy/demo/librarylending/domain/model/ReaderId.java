@@ -5,6 +5,9 @@ package cn.intellijboy.demo.librarylending.domain.model;
  */
 public record ReaderId(Long value) {
 
+    /**
+     * @param value 读者 id，不能为 null
+     */
     public ReaderId {
         if (value == null) {
             throw new IllegalArgumentException("读者 id 不能为空");

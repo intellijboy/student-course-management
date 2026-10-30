@@ -5,6 +5,11 @@ package cn.intellijboy.demo.librarylending.domain.exception;
  */
 public class DuplicateReservationException extends RuntimeException {
 
+    /**
+     * 创建重复预约异常。
+     *
+     * @param message 异常描述信息
+     */
     public DuplicateReservationException(String message) {
         super(message);
     }

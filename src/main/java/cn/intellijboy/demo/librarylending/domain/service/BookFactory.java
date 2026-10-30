@@ -13,7 +13,16 @@ import java.util.List;
  */
 public class BookFactory {
 
-    /** 创建图书与指定数量的馆藏副本 */
+    /**
+     * 创建图书及其指定数量的馆藏副本，副本数量不合法时抛出异常。
+     *
+     * @param id 图书标识，不能为 {@code null}
+     * @param title 图书标题
+     * @param author 图书作者
+     * @param copyCount 需要创建的馆藏副本数量，必须为正整数
+     * @return 已挂载全部馆藏副本的图书聚合
+     * @throws IllegalArgumentException 当副本数量小于或等于 0 时抛出
+     */
     public Book createBook(BookId id, String title, String author, int copyCount) {
         if (copyCount <= 0) {
             throw new IllegalArgumentException("馆藏副本数量必须为正");

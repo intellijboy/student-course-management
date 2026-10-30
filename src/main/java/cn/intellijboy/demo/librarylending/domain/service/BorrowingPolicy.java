@@ -18,12 +18,22 @@ public class BorrowingPolicy {
     /** 默认逾期费率（每天 0.5 元） */
     public static final OverdueFee DEFAULT_OVERDUE_FEE = new OverdueFee(BigDecimal.valueOf(0.5));
 
-    /** 图书是否有可借副本 */
+    /**
+     * 判断图书是否存在可借副本。
+     *
+     * @param book 待检查的图书，不能为 {@code null}
+     * @return 若该图书至少有一个可借副本则返回 {@code true}，否则返回 {@code false}
+     */
     public boolean hasAvailableCopy(Book book) {
         return book.firstAvailableCopy().isPresent();
     }
 
-    /** 副本是否可借 */
+    /**
+     * 判断副本当前是否可借。
+     *
+     * @param copy 待检查的馆藏副本，不能为 {@code null}
+     * @return 若副本处于可借状态则返回 {@code true}，否则返回 {@code false}
+     */
     public boolean isBorrowable(BookCopy copy) {
         return copy.isAvailable();
     }

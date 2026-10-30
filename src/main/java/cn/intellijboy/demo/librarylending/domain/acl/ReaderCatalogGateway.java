@@ -9,6 +9,11 @@ import java.util.Optional;
  */
 public interface ReaderCatalogGateway {
 
-    /** 按读者标识查找读者引用 */
+    /**
+     * 按读者标识查找防腐层翻译后的读者引用。
+     *
+     * @param readerId 读者标识，不能为 {@code null}
+     * @return 对应的读者引用；外部读者目录中不存在时返回 {@link Optional#empty()}
+     */
     Optional<ReaderRef> findReader(ReaderId readerId);
 }

@@ -7,5 +7,10 @@ import cn.intellijboy.demo.librarylending.domain.model.BookId;
  */
 public interface BookIdGenerator {
 
+    /**
+     * 生成下一个唯一的图书标识。
+     *
+     * @return 新生成的图书标识，保证不与已有标识重复
+     */
     BookId next();
 }
