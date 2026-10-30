@@ -40,10 +40,10 @@ jacoco.exec
 application-local.yml
 application-local.yaml
 
+docs/knowledge
+
 # >>> teamai tool dirs (managed by teamai) >>>
 .teamai/
 .claude/
 .opencode/
 # <<< teamai tool dirs <<<
-
-docs/knowledge

@@ -1,5 +1,8 @@
 package cn.intellijboy.demo.application.studentcourse;
 
+import cn.intellijboy.demo.domain.studentcourse.event.GradeEventPublisher;
+import cn.intellijboy.demo.domain.studentcourse.event.GradeRegisteredEvent;
+import cn.intellijboy.demo.domain.studentcourse.event.GradeUpdatedEvent;
 import cn.intellijboy.demo.domain.studentcourse.exception.DuplicateGradeException;
 import cn.intellijboy.demo.domain.studentcourse.model.CourseGrade;
 import cn.intellijboy.demo.domain.studentcourse.repository.CourseGradeRepository;
@@ -12,9 +15,12 @@ import java.util.List;
 public class CourseGradeApplicationService {
 
     private final CourseGradeRepository courseGradeRepository;
+    private final GradeEventPublisher eventPublisher;
 
-    public CourseGradeApplicationService(CourseGradeRepository courseGradeRepository) {
+    public CourseGradeApplicationService(CourseGradeRepository courseGradeRepository,
+                                         GradeEventPublisher eventPublisher) {
         this.courseGradeRepository = courseGradeRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Transactional
@@ -22,7 +28,9 @@ public class CourseGradeApplicationService {
         if (courseGradeRepository.findByStudentIdAndCourseId(studentId, courseId).isPresent()) {
             throw new DuplicateGradeException("该学生已登记过此课程的成绩，不可重复登记");
         }
-        return courseGradeRepository.save(new CourseGrade(null, studentId, courseId, score));
+        CourseGrade grade = courseGradeRepository.save(new CourseGrade(null, studentId, courseId, score));
+        eventPublisher.publish(new GradeRegisteredEvent(studentId, courseId, grade.getScore().value()));
+        return grade;
     }
 
     @Transactional
@@ -30,7 +38,10 @@ public class CourseGradeApplicationService {
         CourseGrade grade = courseGradeRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("成绩不存在，id=" + id));
         grade.updateScore(score);
-        return courseGradeRepository.save(grade);
+        grade = courseGradeRepository.save(grade);
+        eventPublisher.publish(new GradeUpdatedEvent(grade.getId(), grade.getStudentId(),
+            grade.getCourseId(), grade.getScore().value()));
+        return grade;
     }
 
     @Transactional

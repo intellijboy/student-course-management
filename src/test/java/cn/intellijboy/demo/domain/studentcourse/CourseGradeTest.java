@@ -14,7 +14,7 @@ class CourseGradeTest {
     void shouldCreateGradeWithValidScore() {
         CourseGrade grade = new CourseGrade(1L, 10L, 20L, 85);
         assertNotNull(grade);
-        assertEquals(85, grade.getScore());
+        assertEquals(85, grade.getScore().value());
     }
 
     @Test
@@ -31,7 +31,7 @@ class CourseGradeTest {
     void shouldUpdateScoreWithValidValue() {
         CourseGrade grade = new CourseGrade(1L, 10L, 20L, 85);
         grade.updateScore(90);
-        assertEquals(90, grade.getScore());
+        assertEquals(90, grade.getScore().value());
     }
 
     @Test

@@ -74,6 +74,6 @@ public class StudentController {
     }
 
     private StudentDto toDto(Student student) {
-        return new StudentDto(student.getId(), student.getName(), student.getEmail());
+        return new StudentDto(student.getId(), student.getName(), student.getEmail().value());
     }
 }

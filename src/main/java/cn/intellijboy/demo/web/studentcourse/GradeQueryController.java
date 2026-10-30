@@ -44,6 +44,6 @@ public class GradeQueryController {
     }
 
     private CourseGradeDto toDto(CourseGrade grade) {
-        return new CourseGradeDto(grade.getId(), grade.getStudentId(), grade.getCourseId(), grade.getScore());
+        return new CourseGradeDto(grade.getId(), grade.getStudentId(), grade.getCourseId(), grade.getScore().value());
     }
 }

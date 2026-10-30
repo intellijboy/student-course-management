@@ -37,8 +37,8 @@ public class StudentApplicationService {
     public Student update(Long id, String name, String email) {
         Student student = studentRepository.findById(id)
             .orElseThrow(() -> new NotFoundException("学生不存在: id=" + id));
-        student.setName(name);
-        student.setEmail(email);
+        student.updateName(name);
+        student.updateEmail(email);
         return studentRepository.save(student);
     }
 

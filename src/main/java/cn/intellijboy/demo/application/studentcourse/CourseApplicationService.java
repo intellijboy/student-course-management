@@ -37,8 +37,8 @@ public class CourseApplicationService {
     public Course update(Long id, String name, Integer credits) {
         Course course = courseRepository.findById(id)
             .orElseThrow(() -> new NotFoundException("课程不存在: id=" + id));
-        course.setName(name);
-        course.setCredits(credits);
+        course.updateName(name);
+        course.updateCredits(credits);
         return courseRepository.save(course);
     }
 

@@ -45,7 +45,7 @@ class CourseGradeApplicationServiceTest {
         CourseGrade grade = applicationService.register(student.getId(), course.getId(), 90);
 
         assertNotNull(grade.getId());
-        assertEquals(90, grade.getScore());
+        assertEquals(90, grade.getScore().value());
 
         List<CourseGrade> byStudent = applicationService.findByStudent(student.getId());
         assertTrue(byStudent.stream().anyMatch(g -> g.getId().equals(grade.getId())));
@@ -74,7 +74,7 @@ class CourseGradeApplicationServiceTest {
 
         CourseGrade updated = applicationService.update(grade.getId(), 95);
 
-        assertEquals(95, updated.getScore());
+        assertEquals(95, updated.getScore().value());
     }
 
     @Test

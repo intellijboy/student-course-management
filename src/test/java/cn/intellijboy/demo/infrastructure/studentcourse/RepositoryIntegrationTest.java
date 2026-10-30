@@ -39,7 +39,7 @@ class RepositoryIntegrationTest {
 
         assertTrue(found.isPresent());
         assertEquals("张三", found.get().getName());
-        assertEquals("zhangsan@example.com", found.get().getEmail());
+        assertEquals("zhangsan@example.com", found.get().getEmail().value());
     }
 
     @Test
@@ -63,7 +63,7 @@ class RepositoryIntegrationTest {
 
         assertTrue(found.isPresent());
         assertEquals(saved.getId(), found.get().getId());
-        assertEquals(88, found.get().getScore());
+        assertEquals(88, found.get().getScore().value());
     }
 
     @Test

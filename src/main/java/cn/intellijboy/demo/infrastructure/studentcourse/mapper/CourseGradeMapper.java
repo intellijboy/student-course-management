@@ -15,7 +15,7 @@ public class CourseGradeMapper {
         entity.setId(grade.getId());
         entity.setStudentId(grade.getStudentId());
         entity.setCourseId(grade.getCourseId());
-        entity.setScore(grade.getScore());
+        entity.setScore(grade.getScore().value());
         return entity;
     }
 

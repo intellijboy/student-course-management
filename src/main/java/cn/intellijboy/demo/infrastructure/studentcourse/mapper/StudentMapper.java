@@ -14,7 +14,7 @@ public class StudentMapper {
         StudentJpaEntity entity = new StudentJpaEntity();
         entity.setId(student.getId());
         entity.setName(student.getName());
-        entity.setEmail(student.getEmail());
+        entity.setEmail(student.getEmail().value());
         return entity;
     }
 

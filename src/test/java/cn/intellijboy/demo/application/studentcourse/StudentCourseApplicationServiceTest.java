@@ -34,7 +34,7 @@ class StudentCourseApplicationServiceTest {
         Optional<Student> byId = studentService.findById(created.getId());
         assertTrue(byId.isPresent());
         assertEquals("王小王", byId.get().getName());
-        assertEquals(email, byId.get().getEmail());
+        assertEquals(email, byId.get().getEmail().value());
 
         List<Student> all = studentService.findAll();
         assertTrue(all.stream().anyMatch(s -> s.getId().equals(created.getId())));
@@ -53,7 +53,7 @@ class StudentCourseApplicationServiceTest {
         Optional<Student> found = studentService.findById(created.getId());
         assertTrue(found.isPresent());
         assertEquals("更新后", found.get().getName());
-        assertEquals("updated@example.com", found.get().getEmail());
+        assertEquals("updated@example.com", found.get().getEmail().value());
 
         studentService.delete(created.getId());
     }
