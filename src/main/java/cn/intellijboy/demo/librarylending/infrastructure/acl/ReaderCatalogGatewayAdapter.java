@@ -3,7 +3,7 @@ package cn.intellijboy.demo.librarylending.infrastructure.acl;
 import cn.intellijboy.demo.librarylending.domain.acl.ReaderCatalogGateway;
 import cn.intellijboy.demo.librarylending.domain.acl.ReaderRef;
 import cn.intellijboy.demo.librarylending.domain.model.ReaderId;
-import cn.intellijboy.demo.infrastructure.studentcourse.repository.JpaStudentRepository;
+import cn.intellijboy.demo.studentcourse.infrastructure.repository.JpaStudentRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
