@@ -6,6 +6,7 @@ import cn.intellijboy.demo.librarylending.domain.repository.BookIdGenerator;
 import cn.intellijboy.demo.librarylending.domain.repository.BookRepository;
 import cn.intellijboy.demo.librarylending.domain.service.BookFactory;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * CatalogApplicationService 应用层测试：馆藏登记与查询（内存 stub 仓储）。
  */
+@DisplayName("馆藏目录应用服务测试")
 class CatalogApplicationServiceTest {
 
     private CatalogApplicationService service;
@@ -33,6 +35,7 @@ class CatalogApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("登记图书时创建书名、作者与副本数量")
     void registerBookCreatesTitleAndCopies() {
         Book book = service.registerBook("DDD 实战", "作者", 3);
         assertEquals("DDD 实战", book.getTitle());
@@ -42,6 +45,7 @@ class CatalogApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("按 ID 查询时返回已登记的图书")
     void findByIdReturnsRegisteredBook() {
         Book saved = service.registerBook("领域驱动设计", "Eric Evans", 2);
         Optional<Book> found = service.findById(saved.getId());
@@ -50,6 +54,7 @@ class CatalogApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("查询全部图书时返回所有已登记图书")
     void findAllReturnsAllBooks() {
         service.registerBook("图书一", "作者A", 1);
         service.registerBook("图书二", "作者B", 1);

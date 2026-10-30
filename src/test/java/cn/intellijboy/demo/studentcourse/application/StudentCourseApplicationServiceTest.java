@@ -3,6 +3,7 @@ package cn.intellijboy.demo.studentcourse.application;
 import cn.intellijboy.demo.studentcourse.domain.exception.NotFoundException;
 import cn.intellijboy.demo.studentcourse.domain.model.Course;
 import cn.intellijboy.demo.studentcourse.domain.model.Student;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@DisplayName("学生课程应用服务测试")
 class StudentCourseApplicationServiceTest {
 
     @Autowired
@@ -26,6 +28,7 @@ class StudentCourseApplicationServiceTest {
     private CourseApplicationService courseService;
 
     @Test
+    @DisplayName("创建学生后能按 ID 与列表查询到该学生")
     void shouldCreateStudentAndFindInListAndById() {
         String email = "app-" + UUID.randomUUID() + "@example.com";
         Student created = studentService.create("王小王", email);
@@ -43,6 +46,7 @@ class StudentCourseApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("更新学生信息后查询结果同步变更")
     void shouldUpdateStudent() {
         String email = "app-update-" + UUID.randomUUID() + "@example.com";
         Student created = studentService.create("更新前", email);
@@ -59,6 +63,7 @@ class StudentCourseApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("删除学生后查询结果为空")
     void shouldDeleteStudent() {
         String email = "app-delete-" + UUID.randomUUID() + "@example.com";
         Student created = studentService.create("待删除", email);
@@ -69,6 +74,7 @@ class StudentCourseApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("创建、更新、删除课程的全流程操作生效")
     void shouldCreateUpdateAndDeleteCourse() {
         String name = "应用层课程-" + UUID.randomUUID();
         Course created = courseService.create(name, 3);
@@ -90,6 +96,7 @@ class StudentCourseApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("更新不存在的学生时抛出 NotFoundException")
     void shouldThrowWhenUpdatingNonExistentStudent() {
         long missingId = 100_000_000L;
 
@@ -100,6 +107,7 @@ class StudentCourseApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("删除不存在的课程时抛出 NotFoundException")
     void shouldThrowWhenDeletingNonExistentCourse() {
         long missingId = 100_000_000L;
 

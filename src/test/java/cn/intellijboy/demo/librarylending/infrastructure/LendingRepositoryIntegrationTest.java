@@ -16,6 +16,7 @@ import cn.intellijboy.demo.librarylending.domain.repository.BookRepository;
 import cn.intellijboy.demo.librarylending.domain.repository.LoanRepository;
 import cn.intellijboy.demo.librarylending.domain.repository.ReservationRepository;
 import cn.intellijboy.demo.librarylending.domain.service.BookFactory;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -38,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * 基础设施层集成测试：JPA 仓储读写与领域事件发布。
  */
 @SpringBootTest
+@DisplayName("图书借阅仓储集成测试")
 @SpringJUnitConfig(classes = LendingRepositoryIntegrationTest.EventConfig.class)
 class LendingRepositoryIntegrationTest {
 
@@ -54,6 +56,7 @@ class LendingRepositoryIntegrationTest {
     private DomainEventPublisher publisher;
 
     @Test
+    @DisplayName("保存图书及其副本后可按 ID 查回")
     void shouldSaveAndFindBookWithCopies() {
         Book saved = new BookFactory().createBook(new BookId(1L), "DDD 实战", "作者", 2);
         bookRepository.save(saved);
@@ -66,6 +69,7 @@ class LendingRepositoryIntegrationTest {
     }
 
     @Test
+    @DisplayName("保存借阅记录后可按读者与副本查询到未归还借阅")
     void shouldSaveAndFindLoanAndActiveByReaderAndCopy() {
         Loan saved = loanRepository.save(new Loan(null, new ReaderId(1L), new BookId(1L),
             new BookCopyId(101L), LocalDate.of(2026, 10, 1), new LoanPeriod(14)));
@@ -77,6 +81,7 @@ class LendingRepositoryIntegrationTest {
     }
 
     @Test
+    @DisplayName("查询逾期列表时返回已逾期的借阅记录")
     void shouldFindOverdueLoans() {
         loanRepository.save(new Loan(null, new ReaderId(1L), new BookId(1L), new BookCopyId(101L),
             LocalDate.of(2026, 9, 1), new LoanPeriod(14)));
@@ -85,6 +90,7 @@ class LendingRepositoryIntegrationTest {
     }
 
     @Test
+    @DisplayName("保存预约后可按创建时间顺序查询等待队列")
     void shouldSaveReservationAndOrderByCreatedAt() {
         reservationRepository.save(new Reservation(null, new ReaderId(2L), new BookId(1L),
             ReservationStatus.WAITING, LocalDateTime.of(2026, 10, 2, 9, 0)));
@@ -98,6 +104,7 @@ class LendingRepositoryIntegrationTest {
     }
 
     @Test
+    @DisplayName("通过适配器发布领域事件时监听器可收到事件")
     void shouldPublishDomainEventThroughAdapter() {
         EventRecorder.reset();
         publisher.publish(new BookLoanedEvent(new ReaderId(1L), new BookCopyId(101L)));

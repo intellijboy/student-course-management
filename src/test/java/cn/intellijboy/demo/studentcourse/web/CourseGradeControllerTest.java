@@ -1,6 +1,7 @@
 package cn.intellijboy.demo.studentcourse.web;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DisplayName("成绩接口测试")
 class CourseGradeControllerTest {
 
     @Autowired
@@ -35,6 +37,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("登记成绩返回 201 与成绩 DTO")
     void registerGradeReturns201WithDto() throws Exception {
         long studentId = createStudent("成绩学生", "grade@example.com");
         long courseId = createCourse("成绩课程", 3);
@@ -50,6 +53,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("登记超出范围的成绩返回 400")
     void registerGradeWithOutOfRangeScoreReturns400() throws Exception {
         long studentId = createStudent("越界学生", "invalid@example.com");
         long courseId = createCourse("越界课程", 2);
@@ -62,6 +66,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("重复登记同一学生同一课程的成绩返回 400")
     void registerDuplicateGradeReturns400() throws Exception {
         long studentId = createStudent("重复学生", "dup@example.com");
         long courseId = createCourse("重复课程", 4);
@@ -76,6 +81,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("更新存在的成绩返回 200 与更新后信息")
     void updateGradeReturns200WhenExists() throws Exception {
         long studentId = createStudent("修改学生", "update@example.com");
         long courseId = createCourse("修改课程", 3);
@@ -92,6 +98,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("更新为超出范围的成绩返回 400")
     void updateGradeWithOutOfRangeScoreReturns400() throws Exception {
         long studentId = createStudent("越界修改学生", "update-invalid@example.com");
         long courseId = createCourse("越界修改课程", 2);
@@ -105,6 +112,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("更新不存在的成绩返回 404")
     void updateGradeReturns404WhenNotFound() throws Exception {
         mockMvc.perform(put("/api/grades/9999")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -114,6 +122,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("删除存在的成绩返回 204")
     void deleteGradeReturns204WhenExists() throws Exception {
         long studentId = createStudent("删除学生", "delete@example.com");
         long courseId = createCourse("删除课程", 3);
@@ -124,6 +133,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("删除不存在的成绩返回 404")
     void deleteGradeReturns404WhenNotFound() throws Exception {
         mockMvc.perform(delete("/api/grades/9999"))
                 .andExpect(status().isNotFound())
@@ -131,6 +141,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("按学生查询成绩返回成绩列表")
     void findGradesByStudentReturnsList() throws Exception {
         long studentId = createStudent("查询学生", "query@example.com");
         long course1 = createCourse("课程一", 3);
@@ -145,6 +156,7 @@ class CourseGradeControllerTest {
     }
 
     @Test
+    @DisplayName("按课程查询成绩返回成绩列表")
     void findGradesByCourseReturnsList() throws Exception {
         long courseId = createCourse("查询课程", 3);
         long student1 = createStudent("学生甲", "a@example.com");

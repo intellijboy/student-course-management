@@ -1,6 +1,7 @@
 package cn.intellijboy.demo.studentcourse.web;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DisplayName("学生课程接口测试")
 class StudentCourseControllerTest {
 
     @Autowired
@@ -37,6 +39,7 @@ class StudentCourseControllerTest {
     // ---------- Student ----------
 
     @Test
+    @DisplayName("创建学生返回 201 与 id")
     void createStudentReturns201WithId() throws Exception {
         mockMvc.perform(post("/api/students")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -48,6 +51,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("查询学生列表返回已创建的学生")
     void listStudentsReturnsCreatedStudents() throws Exception {
         createStudent("张三", "zhangsan@example.com");
         createStudent("李四", "lisi@example.com");
@@ -57,6 +61,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("更新存在的学生返回 200 与更新后信息")
     void updateStudentReturns200WhenExists() throws Exception {
         long id = createStudent("张三", "zhangsan@example.com");
         mockMvc.perform(put("/api/students/{id}", id)
@@ -69,6 +74,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("更新不存在的学生返回 404")
     void updateStudentReturns404WhenNotFound() throws Exception {
         mockMvc.perform(put("/api/students/9999")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -78,6 +84,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("删除存在的学生返回 204")
     void deleteStudentReturns204WhenExists() throws Exception {
         long id = createStudent("待删除", "delete@example.com");
         mockMvc.perform(delete("/api/students/{id}", id))
@@ -85,6 +92,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("删除不存在的学生返回 404")
     void deleteStudentReturns404WhenNotFound() throws Exception {
         mockMvc.perform(delete("/api/students/9999"))
                 .andExpect(status().isNotFound())
@@ -94,6 +102,7 @@ class StudentCourseControllerTest {
     // ---------- Course ----------
 
     @Test
+    @DisplayName("创建课程返回 201 与 id")
     void createCourseReturns201WithId() throws Exception {
         mockMvc.perform(post("/api/courses")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -105,6 +114,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("查询课程列表返回已创建的课程")
     void listCoursesReturnsCreatedCourses() throws Exception {
         createCourse("高等数学", 4);
         createCourse("大学英语", 2);
@@ -114,6 +124,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("更新存在的课程返回 200 与更新后信息")
     void updateCourseReturns200WhenExists() throws Exception {
         long id = createCourse("高等数学", 4);
         mockMvc.perform(put("/api/courses/{id}", id)
@@ -126,6 +137,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("更新不存在的课程返回 404")
     void updateCourseReturns404WhenNotFound() throws Exception {
         mockMvc.perform(put("/api/courses/9999")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -135,6 +147,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("删除存在的课程返回 204")
     void deleteCourseReturns204WhenExists() throws Exception {
         long id = createCourse("待删除课程", 1);
         mockMvc.perform(delete("/api/courses/{id}", id))
@@ -142,6 +155,7 @@ class StudentCourseControllerTest {
     }
 
     @Test
+    @DisplayName("删除不存在的课程返回 404")
     void deleteCourseReturns404WhenNotFound() throws Exception {
         mockMvc.perform(delete("/api/courses/9999"))
                 .andExpect(status().isNotFound())

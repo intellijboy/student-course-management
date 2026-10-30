@@ -3,6 +3,7 @@ package cn.intellijboy.demo.librarylending.domain.event;
 import cn.intellijboy.demo.librarylending.domain.model.BookCopyId;
 import cn.intellijboy.demo.librarylending.domain.model.BookId;
 import cn.intellijboy.demo.librarylending.domain.model.ReaderId;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,11 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * 领域事件与发布端口单元测试。
  */
+@DisplayName("领域事件测试")
 class DomainEventTest {
 
     private final ReaderId reader = new ReaderId(1L);
 
     @Test
+    @DisplayName("领域事件携带关联数据与发生时间")
     void eventsCarryDataAndTimestamp() {
         BookLoanedEvent loaned = new BookLoanedEvent(reader, new BookCopyId(10L));
         assertEquals(reader, loaned.getReaderId());
@@ -35,6 +38,7 @@ class DomainEventTest {
     }
 
     @Test
+    @DisplayName("发布端口可发布并接收领域事件")
     void eventPublisherPortIsUsable() {
         List<DomainEvent> published = new ArrayList<>();
         DomainEventPublisher publisher = published::add;

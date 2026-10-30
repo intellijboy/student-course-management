@@ -14,6 +14,7 @@ import cn.intellijboy.demo.librarylending.domain.repository.ReservationRepositor
 import cn.intellijboy.demo.librarylending.domain.service.BorrowingPolicy;
 import cn.intellijboy.demo.librarylending.domain.service.BookFactory;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * LendingQueryService 读模型测试：按读者借阅、图书状态与逾期列表。
  */
+@DisplayName("借阅查询服务测试")
 class LendingQueryServiceTest {
 
     private final ReaderId reader1 = new ReaderId(1L);
@@ -52,6 +54,7 @@ class LendingQueryServiceTest {
     }
 
     @Test
+    @DisplayName("查询读者借阅时只返回该读者的借阅记录")
     void loansOfReaderReturnsReaderLoans() {
         Book book = new BookFactory().createBook(bookId, "DDD 实战", "作者", 2);
         bookRepository.save(book);
@@ -66,6 +69,7 @@ class LendingQueryServiceTest {
     }
 
     @Test
+    @DisplayName("查询图书状态时展示可借与已借数量及预约队列")
     void bookStatusShowsCountsAndReservationQueue() {
         Book book = new BookFactory().createBook(bookId, "DDD 实战", "作者", 2);
         book.getCopies().get(0).borrow();
@@ -83,6 +87,7 @@ class LendingQueryServiceTest {
     }
 
     @Test
+    @DisplayName("查询逾期列表时只返回已逾期的借阅记录")
     void overdueLoansReturnsOnlyOverdue() {
         loanRepository.save(new Loan(1L, reader1, bookId, new BookCopyId(101L),
             LocalDate.now().minusDays(30), new LoanPeriod(14)));

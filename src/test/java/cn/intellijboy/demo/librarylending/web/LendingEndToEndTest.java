@@ -1,6 +1,7 @@
 package cn.intellijboy.demo.librarylending.web;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@DisplayName("图书借阅端到端测试")
 class LendingEndToEndTest {
 
     @Autowired
@@ -34,6 +36,7 @@ class LendingEndToEndTest {
     }
 
     @Test
+    @DisplayName("完整借阅流程依次执行成功：登记馆藏、借阅、满借拒绝、预约、归还转正与查询")
     void fullLendingFlow() throws Exception {
         // 1. 创建三名读者（复用学生上下文，经防腐层校验）
         mockMvc.perform(post("/api/students").contentType(MediaType.APPLICATION_JSON)
@@ -91,6 +94,7 @@ class LendingEndToEndTest {
     }
 
     @Test
+    @DisplayName("防腐层拒绝不存在读者的借阅与预约并返回 404")
     void unknownReaderRejectedByAcl() throws Exception {
         mockMvc.perform(post("/api/books").contentType(MediaType.APPLICATION_JSON)
                 .content("{\"title\":\"领域驱动设计\",\"author\":\"Eric Evans\",\"copyCount\":1}"))

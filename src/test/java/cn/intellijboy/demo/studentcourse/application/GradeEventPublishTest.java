@@ -8,6 +8,7 @@ import cn.intellijboy.demo.studentcourse.domain.model.Student;
 import cn.intellijboy.demo.studentcourse.domain.repository.CourseRepository;
 import cn.intellijboy.demo.studentcourse.domain.repository.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * 成绩领域事件发布验证（仅作示范，不引入跨模块消费）。
  */
 @SpringBootTest
+@DisplayName("成绩领域事件发布测试")
 class GradeEventPublishTest {
 
     @Autowired
@@ -51,6 +53,7 @@ class GradeEventPublishTest {
     }
 
     @Test
+    @DisplayName("登记成绩时发布 GradeRegisteredEvent 事件")
     void registerPublishesGradeRegisteredEvent() {
         CourseGrade grade = applicationService.register(student.getId(), course.getId(), 88);
         assertNotNull(grade.getId());
@@ -65,6 +68,7 @@ class GradeEventPublishTest {
     }
 
     @Test
+    @DisplayName("更新成绩时发布 GradeUpdatedEvent 事件")
     void updatePublishesGradeUpdatedEvent() {
         CourseGrade grade = applicationService.register(student.getId(), course.getId(), 60);
         eventRecorder.reset();

@@ -31,6 +31,7 @@ import cn.intellijboy.demo.librarylending.domain.service.BookFactory;
 import cn.intellijboy.demo.librarylending.domain.service.LoanFactory;
 import cn.intellijboy.demo.librarylending.domain.service.ReservationPromotionService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -51,6 +52,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * LoanApplicationService 应用层测试：借阅/归还/预约/转正/逾期与防腐层校验（内存 stub）。
  */
+@DisplayName("借阅应用服务测试")
 class LoanApplicationServiceTest {
 
     private final ReaderId reader1 = new ReaderId(1L);
@@ -84,6 +86,7 @@ class LoanApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("副本可借时借阅成功并发布借出事件")
     void borrowSucceedsWhenCopyAvailable() {
         Book book = bookWithCopies(1);
         Loan loan = service.borrow(reader1, bookId);
@@ -94,17 +97,20 @@ class LoanApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("借阅时拒绝不存在的读者")
     void borrowRejectsUnknownReader() {
         bookWithCopies(1);
         assertThrows(ReaderNotFoundException.class, () -> service.borrow(unknownReader, bookId));
     }
 
     @Test
+    @DisplayName("借阅时拒绝不存在的图书")
     void borrowRejectsUnknownBook() {
         assertThrows(BookNotFoundException.class, () -> service.borrow(reader1, new BookId(404L)));
     }
 
     @Test
+    @DisplayName("全部副本已借出时拒绝再次借阅")
     void borrowRejectsWhenAllCopiesBorrowed() {
         bookWithCopies(1);
         service.borrow(reader1, bookId);
@@ -112,6 +118,7 @@ class LoanApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("同一读者重复借阅同一副本时拒绝借阅")
     void borrowRejectsDuplicateForSameReaderAndCopy() {
         // 2 副本：读者借出副本 101 后，将其状态重置为可借以模拟同副本再次借阅触发重复不变式
         Book book = bookWithCopies(2);
@@ -124,6 +131,7 @@ class LoanApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("全部副本已借出时预约进入等待队列")
     void reserveCreatesWaitingReservationWhenAllBorrowed() {
         bookWithCopies(1);
         service.borrow(reader1, bookId);
@@ -133,12 +141,14 @@ class LoanApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("存在可借副本时拒绝预约")
     void reserveRejectedWhenAvailableCopyExists() {
         bookWithCopies(1);
         assertThrows(BookCopyUnavailableException.class, () -> service.reserve(reader1, bookId));
     }
 
     @Test
+    @DisplayName("同一读者重复预约同一图书时拒绝预约")
     void reserveRejectedForDuplicate() {
         bookWithCopies(1);
         service.borrow(reader1, bookId);
@@ -148,6 +158,7 @@ class LoanApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("归还时无等待预约则副本恢复可借且免收滞纳金")
     void returnCopyRestoresAvailableWithoutReservation() {
         bookWithCopies(1);
         Loan loan = service.borrow(reader1, bookId);
@@ -159,6 +170,7 @@ class LoanApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("归还逾期借阅时收取滞纳金并发布逾期事件")
     void overdueLoanChargesFeeAndPublishesEvent() {
         // 固定借出日期以制造逾期：直接构造逾期 Loan（副本 id 对应 BookFactory 生成的 101）
         Loan loan = new Loan(1L, reader1, bookId, new BookCopyId(101L),
@@ -174,6 +186,7 @@ class LoanApplicationServiceTest {
     }
 
     @Test
+    @DisplayName("归还时通知最早等待的预约读者并转正预约")
     void returnCopyPromotesEarliestWaitingReservation() {
         bookWithCopies(1);
         Loan loan = service.borrow(reader1, bookId);

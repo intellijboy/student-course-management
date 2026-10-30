@@ -1,6 +1,7 @@
 package cn.intellijboy.demo.librarylending.web;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@DisplayName("图书借阅接口测试")
 class LibraryLendingControllerTest {
 
     @Autowired
@@ -40,6 +42,7 @@ class LibraryLendingControllerTest {
     }
 
     @Test
+    @DisplayName("登记图书返回 201")
     void registerBookReturns201() throws Exception {
         mockMvc.perform(post("/api/books")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -50,6 +53,7 @@ class LibraryLendingControllerTest {
     }
 
     @Test
+    @DisplayName("读者借阅图书返回 201")
     void borrowReturns201() throws Exception {
         createStudent(1L, "张三");
         mockMvc.perform(post("/api/books")
@@ -65,6 +69,7 @@ class LibraryLendingControllerTest {
     }
 
     @Test
+    @DisplayName("读者不存在时借阅返回 404")
     void borrowWithUnknownReaderReturns404() throws Exception {
         mockMvc.perform(post("/api/books")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -78,6 +83,7 @@ class LibraryLendingControllerTest {
     }
 
     @Test
+    @DisplayName("全部副本借出时预约排队，归还后预约转正")
     void reserveWhenAllBorrowedThenReturnPromotes() throws Exception {
         createStudent(1L, "张三");
         createStudent(2L, "李四");
@@ -104,6 +110,7 @@ class LibraryLendingControllerTest {
     }
 
     @Test
+    @DisplayName("查询读者借阅列表返回 200")
     void readerLoansReturns200() throws Exception {
         createStudent(1L, "张三");
         mockMvc.perform(post("/api/books")
