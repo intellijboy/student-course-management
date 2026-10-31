@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.infrastructure.mapper;
 
 import cn.intellijboy.demo.librarylending.domain.model.Book;
@@ -10,6 +15,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * 图书映射器：负责领域模型 {@link Book} 与 JPA 持久化实体（{@link BookJpaEntity}、{@link BookCopyJpaEntity}）之间的双向转换。
+ */
 @Component
 public class BookMapper {
 

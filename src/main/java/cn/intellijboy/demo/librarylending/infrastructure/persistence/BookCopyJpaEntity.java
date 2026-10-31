@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.infrastructure.persistence;
 
 import cn.intellijboy.demo.librarylending.domain.model.BookCopyStatus;
@@ -7,6 +12,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * 图书副本 JPA 实体：对应 book_copies 表，持久化单本图书副本及其借阅状态。
+ */
 @Entity
 @Table(name = "book_copies")
 public class BookCopyJpaEntity {

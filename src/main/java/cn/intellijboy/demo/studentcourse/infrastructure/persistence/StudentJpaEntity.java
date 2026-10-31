@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.infrastructure.persistence;
 
 import jakarta.persistence.Entity;
@@ -6,6 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * 学生 JPA 实体：对应 students 表，持久化学生的姓名与邮箱。
+ */
 @Entity
 @Table(name = "students")
 public class StudentJpaEntity {

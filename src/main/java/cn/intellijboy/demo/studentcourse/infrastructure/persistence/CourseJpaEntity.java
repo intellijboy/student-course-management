@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.infrastructure.persistence;
 
 import jakarta.persistence.Entity;
@@ -6,6 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * 课程 JPA 实体：对应 courses 表，持久化课程的名称与学分。
+ */
 @Entity
 @Table(name = "courses")
 public class CourseJpaEntity {

@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.application;
 
 import cn.intellijboy.demo.studentcourse.domain.exception.NotFoundException;
@@ -17,6 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * 学生/课程应用服务测试：学生与课程的创建、更新、删除及按 ID/列表查询，
+ * 断言更新后查询结果同步变更、操作不存在记录时抛出 NotFoundException。
+ */
 @SpringBootTest
 @DisplayName("学生课程应用服务测试")
 class StudentCourseApplicationServiceTest {

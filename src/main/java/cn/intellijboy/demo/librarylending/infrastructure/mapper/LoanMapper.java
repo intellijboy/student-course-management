@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.infrastructure.mapper;
 
 import cn.intellijboy.demo.librarylending.domain.model.BookCopyId;
@@ -8,6 +13,9 @@ import cn.intellijboy.demo.librarylending.domain.model.ReaderId;
 import cn.intellijboy.demo.librarylending.infrastructure.persistence.LoanJpaEntity;
 import org.springframework.stereotype.Component;
 
+/**
+ * 借阅记录映射器：负责领域模型 {@link Loan} 与 JPA 实体 {@link LoanJpaEntity} 之间的双向转换。
+ */
 @Component
 public class LoanMapper {
 

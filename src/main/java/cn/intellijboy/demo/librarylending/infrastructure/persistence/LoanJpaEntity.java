@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.infrastructure.persistence;
 
 import jakarta.persistence.Entity;
@@ -8,6 +13,9 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
+/**
+ * 借阅记录 JPA 实体：对应 loans 表，持久化某个读者对某本图书副本的借阅及其归还情况。
+ */
 @Entity
 @Table(name = "loans")
 public class LoanJpaEntity {

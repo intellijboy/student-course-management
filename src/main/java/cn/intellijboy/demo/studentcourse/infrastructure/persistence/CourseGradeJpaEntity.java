@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.infrastructure.persistence;
 
 import jakarta.persistence.Column;
@@ -8,6 +13,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+/**
+ * 课程成绩 JPA 实体：对应 course_grades 表，持久化某个学生在某门课程的成绩，并通过唯一约束保证同一学生-课程组合唯一。
+ */
 @Entity
 @Table(name = "course_grades", uniqueConstraints = @UniqueConstraint(name = "uk_student_course", columnNames = {"student_id", "course_id"}))
 public class CourseGradeJpaEntity {

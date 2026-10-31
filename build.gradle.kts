@@ -1,9 +1,35 @@
+import nl.javadude.gradle.plugins.license.LicenseExtension
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    configurations {
+        classpath {
+            // license 插件传递依赖的 spring-core 被解析到 Spring 7，而其内部依赖的
+            // PropertyPlaceholderHelper(String,String,String,boolean) 4 参构造函数在 Spring 7 已移除，
+            // 运行时触发 NoSuchMethodError。强制插件 classpath 使用保留该构造函数的 Spring 6.1.x。
+            resolutionStrategy.eachDependency {
+                if (requested.group == "org.springframework" && requested.name == "spring-core") {
+                    useVersion("6.1.17")
+                    because("license 插件依赖的旧版 spring-core 构造函数在 Spring 7 已删除")
+                }
+            }
+        }
+    }
+    dependencies {
+        classpath("cloud.rio.gradle.plugins:license-gradle-plugin:0.18.0")
+    }
+}
+
 plugins {
     java
     id("org.springframework.boot") version "4.1.2"
     id("io.spring.dependency-management") version "1.1.7"
     id("io.github.javapackager") version "2.0.0"
 }
+
+apply(plugin = "cloud.rio.license")
 
 group = "cn.intellijboy"
 version = "0.0.1-SNAPSHOT"
@@ -47,4 +73,21 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+extensions.configure<LicenseExtension>("license") {
+    header = rootProject.file("LICENSE_HEADER")
+    mapping(mapOf("java" to "SLASHSTAR_STYLE"))
+    skipExistingHeaders = true
+}
+
+// 仅对 Java 源码打 license 头，避免波及 src/main/resources 下的静态资源（js/css）
+val licenseTaskTypes = setOf(
+    com.hierynomus.gradle.license.tasks.LicenseCheck::class.java,
+    com.hierynomus.gradle.license.tasks.LicenseFormat::class.java,
+)
+licenseTaskTypes.forEach { type ->
+    tasks.withType(type) {
+        include("**/*.java")
+    }
 }

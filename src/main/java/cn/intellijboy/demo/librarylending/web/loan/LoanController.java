@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.web.loan;
 
 import cn.intellijboy.demo.librarylending.application.LendingQueryService;
@@ -18,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * 借阅 REST 接口：POST /api/loans 借阅，POST /api/loans/{id}/return 归还，GET /api/readers/{readerId}/loans 按读者查借阅，GET /api/loans/overdue 查逾期列表。
+ */
 @RestController
 public class LoanController {
 

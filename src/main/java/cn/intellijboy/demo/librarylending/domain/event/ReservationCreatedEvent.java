@@ -1,10 +1,15 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.domain.event;
 
 import cn.intellijboy.demo.librarylending.domain.model.BookId;
 import cn.intellijboy.demo.librarylending.domain.model.ReaderId;
 
 /**
- * 预约创建领域事件。
+ * 预约创建领域事件：表示某读者已为某图书创建了一条预约。
  */
 public class ReservationCreatedEvent extends DomainEvent {
 

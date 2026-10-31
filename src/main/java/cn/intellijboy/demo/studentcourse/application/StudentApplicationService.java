@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.application;
 
 import cn.intellijboy.demo.studentcourse.domain.exception.NotFoundException;
@@ -9,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 学生管理应用服务：对外暴露学生查询、创建、更新与删除用例，直接基于仓储操作 Student 聚合。
+ */
 @Service
 public class StudentApplicationService {
 

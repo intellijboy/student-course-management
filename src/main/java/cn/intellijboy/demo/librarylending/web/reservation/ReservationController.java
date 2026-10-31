@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.web.reservation;
 
 import cn.intellijboy.demo.librarylending.application.LoanApplicationService;
@@ -11,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 预约 REST 接口：路径 /api/reservations，POST 创建预约（全部副本被借出时），返回 201 与新建预约。
+ */
 @RestController
 @RequestMapping("/api/reservations")
 public class ReservationController {

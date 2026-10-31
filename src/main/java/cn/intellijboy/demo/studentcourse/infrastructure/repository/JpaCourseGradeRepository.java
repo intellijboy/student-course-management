@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.infrastructure.repository;
 
 import cn.intellijboy.demo.studentcourse.domain.model.CourseGrade;
@@ -9,6 +14,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 课程成绩仓库的 JPA 实现：通过 Spring Data 的 {@link SpringDataCourseGradeRepository} 查询并保存成绩，并由 {@link CourseGradeMapper} 完成领域模型与实体互转。
+ */
 @Repository
 public class JpaCourseGradeRepository implements CourseGradeRepository {
 

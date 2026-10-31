@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.infrastructure.persistence;
 
 import cn.intellijboy.demo.librarylending.domain.model.ReservationStatus;
@@ -11,6 +16,9 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
+/**
+ * 预约记录 JPA 实体：对应 reservations 表，持久化读者对某本图书的预约及其状态、创建时间。
+ */
 @Entity
 @Table(name = "reservations")
 public class ReservationJpaEntity {

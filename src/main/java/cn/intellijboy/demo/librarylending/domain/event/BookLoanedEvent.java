@@ -1,10 +1,15 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.domain.event;
 
 import cn.intellijboy.demo.librarylending.domain.model.BookCopyId;
 import cn.intellijboy.demo.librarylending.domain.model.ReaderId;
 
 /**
- * 借出领域事件。
+ * 借出领域事件：表示某图书副本已借出给某读者，承载这一领域事实。
  */
 public class BookLoanedEvent extends DomainEvent {
 

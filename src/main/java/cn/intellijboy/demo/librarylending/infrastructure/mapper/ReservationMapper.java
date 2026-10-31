@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.infrastructure.mapper;
 
 import cn.intellijboy.demo.librarylending.domain.model.BookId;
@@ -6,6 +11,9 @@ import cn.intellijboy.demo.librarylending.domain.model.Reservation;
 import cn.intellijboy.demo.librarylending.infrastructure.persistence.ReservationJpaEntity;
 import org.springframework.stereotype.Component;
 
+/**
+ * 预约记录映射器：负责领域模型 {@link Reservation} 与 JPA 实体 {@link ReservationJpaEntity} 之间的双向转换。
+ */
 @Component
 public class ReservationMapper {
 

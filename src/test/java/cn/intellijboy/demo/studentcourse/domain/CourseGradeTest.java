@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.domain;
 
 import cn.intellijboy.demo.studentcourse.domain.exception.InvalidScoreException;
@@ -9,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * CourseGrade 领域模型单元测试：分数越界（负数、超过 100）时构造与更新被拒，合法值更新成功。
+ */
 @DisplayName("课程成绩领域测试")
 class CourseGradeTest {
 
