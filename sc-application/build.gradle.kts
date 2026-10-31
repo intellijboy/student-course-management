@@ -14,7 +14,7 @@ dependencies {
     api(project(":sc-domain"))
     api(project(":sc-common"))
 
-    // 统一 Spring Boot 依赖版本（与 sc-app 一致），各层模块以 BOM 管理版本号
+    // 统一 Spring Boot 依赖版本（与 sc-webapp 一致），各层模块以 BOM 管理版本号
     implementation(platform("org.springframework.boot:spring-boot-dependencies:4.1.2"))
 
     // 应用服务用到的 Spring 注解（@Service/@Configuration/@Transactional 等）

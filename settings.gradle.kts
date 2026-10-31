@@ -5,7 +5,7 @@ include("sc-domain")
 include("sc-application")
 include("sc-infrastructure")
 include("sc-interfaces")
-include("sc-app")
+include("sc-webapp")
 
 pluginManagement {
     repositories {
