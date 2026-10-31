@@ -5,6 +5,7 @@
  */
 package cn.intellijboy.infrastructure.librarylending.acl;
 
+import cn.intellijboy.common.StringUtils;
 import cn.intellijboy.domain.librarylending.acl.ReaderCatalogGateway;
 import cn.intellijboy.domain.librarylending.acl.ReaderRef;
 import cn.intellijboy.domain.librarylending.model.ReaderId;
@@ -28,6 +29,6 @@ public class ReaderCatalogGatewayAdapter implements ReaderCatalogGateway {
     @Override
     public Optional<ReaderRef> findReader(ReaderId readerId) {
         return studentRepository.findById(readerId.value())
-            .map(student -> new ReaderRef(readerId, student.getName()));
+            .map(student -> new ReaderRef(readerId, StringUtils.capitalize(student.getName())));
     }
 }

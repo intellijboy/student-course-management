@@ -5,6 +5,7 @@
  */
 package cn.intellijboy.application.studentcourse;
 
+import cn.intellijboy.common.StringUtils;
 import cn.intellijboy.domain.studentcourse.exception.NotFoundException;
 import cn.intellijboy.domain.studentcourse.model.Course;
 import cn.intellijboy.domain.studentcourse.repository.CourseRepository;
@@ -38,7 +39,8 @@ public class CourseApplicationService {
 
     @Transactional
     public Course create(String name, Integer credits) {
-        return courseRepository.save(new Course(null, name, credits));
+        String normalized = StringUtils.capitalize(name);
+        return courseRepository.save(new Course(null, normalized, credits));
     }
 
     @Transactional

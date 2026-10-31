@@ -5,6 +5,7 @@
  */
 package cn.intellijboy.domain.librarylending.service;
 
+import cn.intellijboy.common.StringUtils;
 import cn.intellijboy.domain.librarylending.model.Book;
 import cn.intellijboy.domain.librarylending.model.BookCopy;
 import cn.intellijboy.domain.librarylending.model.BookCopyId;
@@ -31,6 +32,9 @@ public class BookFactory {
     public Book createBook(BookId id, String title, String author, int copyCount) {
         if (copyCount <= 0) {
             throw new IllegalArgumentException("馆藏副本数量必须为正");
+        }
+        if (StringUtils.isBlank(title) || StringUtils.isBlank(author)) {
+            throw new IllegalArgumentException("书名与作者不能为空");
         }
         Book book = new Book(id, title, author);
         List<BookCopy> copies = new ArrayList<>();
