@@ -1,5 +1,12 @@
 rootProject.name = "student-course-management"
 
+include("sc-common")
+include("sc-domain")
+include("sc-application")
+include("sc-infrastructure")
+include("sc-interfaces")
+include("sc-app")
+
 pluginManagement {
     repositories {
         maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
