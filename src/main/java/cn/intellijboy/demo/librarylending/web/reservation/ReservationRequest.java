@@ -1,4 +1,4 @@
-package cn.intellijboy.demo.librarylending.web;
+package cn.intellijboy.demo.librarylending.web.reservation;
 
 /**
  * 预约请求。

@@ -6,6 +6,9 @@ import cn.intellijboy.demo.librarylending.domain.exception.DuplicateLoanExceptio
 import cn.intellijboy.demo.librarylending.domain.exception.DuplicateReservationException;
 import cn.intellijboy.demo.librarylending.domain.exception.LoanNotFoundException;
 import cn.intellijboy.demo.librarylending.domain.exception.ReaderNotFoundException;
+import cn.intellijboy.demo.librarylending.web.book.BookController;
+import cn.intellijboy.demo.librarylending.web.loan.LoanController;
+import cn.intellijboy.demo.librarylending.web.reservation.ReservationController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

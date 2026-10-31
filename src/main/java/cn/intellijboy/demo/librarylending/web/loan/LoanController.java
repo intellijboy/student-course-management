@@ -1,4 +1,4 @@
-package cn.intellijboy.demo.librarylending.web;
+package cn.intellijboy.demo.librarylending.web.loan;
 
 import cn.intellijboy.demo.librarylending.application.LendingQueryService;
 import cn.intellijboy.demo.librarylending.application.LoanApplicationService;
@@ -31,31 +31,31 @@ public class LoanController {
 
     /** 借阅 */
     @PostMapping("/api/loans")
-    public ResponseEntity<Dtos.LoanView> borrow(@RequestBody LoanRequest request) {
+    public ResponseEntity<LoanView> borrow(@RequestBody LoanRequest request) {
         Loan loan = loanService.borrow(new ReaderId(request.readerId()), new BookId(request.bookId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(Dtos.LoanView.of(loan));
+        return ResponseEntity.status(HttpStatus.CREATED).body(LoanView.of(loan));
     }
 
     /** 归还 */
     @PostMapping("/api/loans/{id}/return")
-    public ResponseEntity<Dtos.ReturnView> returnCopy(@PathVariable Long id) {
+    public ResponseEntity<ReturnView> returnCopy(@PathVariable Long id) {
         ReturnResult result = loanService.returnCopy(id, LocalDate.now());
-        return ResponseEntity.ok(new Dtos.ReturnView(result.overdueFee(),
+        return ResponseEntity.ok(new ReturnView(result.overdueFee(),
             result.promotedReaderId() == null ? null : result.promotedReaderId().value()));
     }
 
     /** 按读者查询借阅 */
     @GetMapping("/api/readers/{readerId}/loans")
-    public List<Dtos.LoanView> readerLoans(@PathVariable Long readerId) {
-        return queryService.loansOfReader(new ReaderId(readerId)).stream().map(Dtos.LoanView::of).toList();
+    public List<LoanView> readerLoans(@PathVariable Long readerId) {
+        return queryService.loansOfReader(new ReaderId(readerId)).stream().map(LoanView::of).toList();
     }
 
     /** 逾期列表 */
     @GetMapping("/api/loans/overdue")
-    public List<Dtos.OverdueView> overdue() {
+    public List<OverdueView> overdue() {
         LocalDate today = LocalDate.now();
         return queryService.overdueLoans(today).stream()
-            .map(loan -> Dtos.OverdueView.of(loan, queryService.overdueFeeOf(loan, today)))
+            .map(loan -> OverdueView.of(loan, queryService.overdueFeeOf(loan, today)))
             .toList();
     }
 }

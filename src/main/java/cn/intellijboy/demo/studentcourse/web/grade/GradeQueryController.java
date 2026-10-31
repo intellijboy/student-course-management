@@ -1,4 +1,4 @@
-package cn.intellijboy.demo.studentcourse.web;
+package cn.intellijboy.demo.studentcourse.web.grade;
 
 import cn.intellijboy.demo.studentcourse.application.CourseGradeApplicationService;
 import cn.intellijboy.demo.studentcourse.domain.model.CourseGrade;
@@ -24,9 +24,9 @@ public class GradeQueryController {
      * @return 200 与该学生的成绩列表
      */
     @GetMapping("/api/students/{id}/grades")
-    public List<CourseGradeDto> findByStudent(@PathVariable Long id) {
+    public List<CourseGradeView> findByStudent(@PathVariable Long id) {
         return courseGradeApplicationService.findByStudent(id).stream()
-                .map(this::toDto)
+                .map(this::toView)
                 .toList();
     }
 
@@ -37,13 +37,13 @@ public class GradeQueryController {
      * @return 200 与该课程的成绩列表
      */
     @GetMapping("/api/courses/{id}/grades")
-    public List<CourseGradeDto> findByCourse(@PathVariable Long id) {
+    public List<CourseGradeView> findByCourse(@PathVariable Long id) {
         return courseGradeApplicationService.findByCourse(id).stream()
-                .map(this::toDto)
+                .map(this::toView)
                 .toList();
     }
 
-    private CourseGradeDto toDto(CourseGrade grade) {
-        return new CourseGradeDto(grade.getId(), grade.getStudentId(), grade.getCourseId(), grade.getScore().value());
+    private CourseGradeView toView(CourseGrade grade) {
+        return new CourseGradeView(grade.getId(), grade.getStudentId(), grade.getCourseId(), grade.getScore().value());
     }
 }

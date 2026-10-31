@@ -1,4 +1,4 @@
-package cn.intellijboy.demo.librarylending.web;
+package cn.intellijboy.demo.librarylending.web.reservation;
 
 import cn.intellijboy.demo.librarylending.application.LoanApplicationService;
 import cn.intellijboy.demo.librarylending.domain.model.BookId;
@@ -23,8 +23,8 @@ public class ReservationController {
 
     /** 预约借阅 */
     @PostMapping
-    public ResponseEntity<Dtos.ReservationView> reserve(@RequestBody ReservationRequest request) {
+    public ResponseEntity<ReservationView> reserve(@RequestBody ReservationRequest request) {
         Reservation reservation = loanService.reserve(new ReaderId(request.readerId()), new BookId(request.bookId()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(Dtos.ReservationView.of(reservation));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ReservationView.of(reservation));
     }
 }

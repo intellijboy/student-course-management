@@ -1,4 +1,4 @@
-package cn.intellijboy.demo.librarylending.web;
+package cn.intellijboy.demo.librarylending.web.loan;
 
 /**
  * 借阅请求。

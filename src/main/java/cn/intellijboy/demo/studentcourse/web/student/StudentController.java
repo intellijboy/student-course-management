@@ -1,4 +1,4 @@
-package cn.intellijboy.demo.studentcourse.web;
+package cn.intellijboy.demo.studentcourse.web.student;
 
 import cn.intellijboy.demo.studentcourse.application.StudentApplicationService;
 import cn.intellijboy.demo.studentcourse.domain.model.Student;
@@ -31,9 +31,9 @@ public class StudentController {
      * @return 200 与学生列表
      */
     @GetMapping
-    public List<StudentDto> list() {
+    public List<StudentView> list() {
         return studentApplicationService.findAll().stream()
-                .map(this::toDto)
+                .map(this::toView)
                 .toList();
     }
 
@@ -44,9 +44,9 @@ public class StudentController {
      * @return 201 与新建学生
      */
     @PostMapping
-    public ResponseEntity<StudentDto> create(@RequestBody StudentRequest request) {
+    public ResponseEntity<StudentView> create(@RequestBody StudentRequest request) {
         Student student = studentApplicationService.create(request.name(), request.email());
-        return ResponseEntity.status(HttpStatus.CREATED).body(toDto(student));
+        return ResponseEntity.status(HttpStatus.CREATED).body(toView(student));
     }
 
     /**
@@ -57,8 +57,8 @@ public class StudentController {
      * @return 200 与更新后学生，id 不存在时返回 404
      */
     @PutMapping("/{id}")
-    public StudentDto update(@PathVariable Long id, @RequestBody StudentRequest request) {
-        return toDto(studentApplicationService.update(id, request.name(), request.email()));
+    public StudentView update(@PathVariable Long id, @RequestBody StudentRequest request) {
+        return toView(studentApplicationService.update(id, request.name(), request.email()));
     }
 
     /**
@@ -73,7 +73,7 @@ public class StudentController {
         return ResponseEntity.noContent().build();
     }
 
-    private StudentDto toDto(Student student) {
-        return new StudentDto(student.getId(), student.getName(), student.getEmail().value());
+    private StudentView toView(Student student) {
+        return new StudentView(student.getId(), student.getName(), student.getEmail().value());
     }
 }

@@ -1,4 +1,4 @@
-package cn.intellijboy.demo.studentcourse.web;
+package cn.intellijboy.demo.studentcourse.web.grade;
 
 import cn.intellijboy.demo.studentcourse.application.CourseGradeApplicationService;
 import cn.intellijboy.demo.studentcourse.domain.exception.InvalidScoreException;
@@ -35,10 +35,10 @@ public class CourseGradeController {
      * @return 201 与新建成绩；分数越界或重复登记返回 400
      */
     @PostMapping
-    public ResponseEntity<CourseGradeDto> register(@RequestBody GradeRequest request) {
+    public ResponseEntity<CourseGradeView> register(@RequestBody GradeRequest request) {
         CourseGrade grade = courseGradeApplicationService.register(
             request.studentId(), request.courseId(), requireScore(request.score()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(toDto(grade));
+        return ResponseEntity.status(HttpStatus.CREATED).body(toView(grade));
     }
 
     /**
@@ -49,10 +49,10 @@ public class CourseGradeController {
      * @return 200 与更新后成绩；分数越界返回 400，id 不存在返回 404
      */
     @PutMapping("/{id}")
-    public ResponseEntity<CourseGradeDto> update(@PathVariable Long id, @RequestBody GradeUpdateRequest request) {
+    public ResponseEntity<CourseGradeView> update(@PathVariable Long id, @RequestBody GradeUpdateRequest request) {
         requireExists(id);
         CourseGrade grade = courseGradeApplicationService.update(id, requireScore(request.score()));
-        return ResponseEntity.ok(toDto(grade));
+        return ResponseEntity.ok(toView(grade));
     }
 
     /**
@@ -81,7 +81,7 @@ public class CourseGradeController {
         return score;
     }
 
-    private CourseGradeDto toDto(CourseGrade grade) {
-        return new CourseGradeDto(grade.getId(), grade.getStudentId(), grade.getCourseId(), grade.getScore().value());
+    private CourseGradeView toView(CourseGrade grade) {
+        return new CourseGradeView(grade.getId(), grade.getStudentId(), grade.getCourseId(), grade.getScore().value());
     }
 }

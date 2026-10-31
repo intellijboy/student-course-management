@@ -1,4 +1,4 @@
-package cn.intellijboy.demo.studentcourse.web;
+package cn.intellijboy.demo.studentcourse.web.course;
 
 import cn.intellijboy.demo.studentcourse.application.CourseApplicationService;
 import cn.intellijboy.demo.studentcourse.domain.model.Course;
@@ -31,9 +31,9 @@ public class CourseController {
      * @return 200 与课程列表
      */
     @GetMapping
-    public List<CourseDto> list() {
+    public List<CourseView> list() {
         return courseApplicationService.findAll().stream()
-                .map(this::toDto)
+                .map(this::toView)
                 .toList();
     }
 
@@ -44,9 +44,9 @@ public class CourseController {
      * @return 201 与新建课程
      */
     @PostMapping
-    public ResponseEntity<CourseDto> create(@RequestBody CourseRequest request) {
+    public ResponseEntity<CourseView> create(@RequestBody CourseRequest request) {
         Course course = courseApplicationService.create(request.name(), request.credits());
-        return ResponseEntity.status(HttpStatus.CREATED).body(toDto(course));
+        return ResponseEntity.status(HttpStatus.CREATED).body(toView(course));
     }
 
     /**
@@ -57,8 +57,8 @@ public class CourseController {
      * @return 200 与更新后课程，id 不存在时返回 404
      */
     @PutMapping("/{id}")
-    public CourseDto update(@PathVariable Long id, @RequestBody CourseRequest request) {
-        return toDto(courseApplicationService.update(id, request.name(), request.credits()));
+    public CourseView update(@PathVariable Long id, @RequestBody CourseRequest request) {
+        return toView(courseApplicationService.update(id, request.name(), request.credits()));
     }
 
     /**
@@ -73,7 +73,7 @@ public class CourseController {
         return ResponseEntity.noContent().build();
     }
 
-    private CourseDto toDto(Course course) {
-        return new CourseDto(course.getId(), course.getName(), course.getCredits());
+    private CourseView toView(Course course) {
+        return new CourseView(course.getId(), course.getName(), course.getCredits());
     }
 }
