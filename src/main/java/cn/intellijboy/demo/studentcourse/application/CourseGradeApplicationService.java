@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.application;
 
 import cn.intellijboy.demo.studentcourse.domain.event.GradeEventPublisher;
@@ -11,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * 成绩管理应用服务：对外暴露成绩登记、修改、删除与按学生/课程查询用例，在事务内编排 CourseGrade 聚合并发布得分事件。
+ */
 @Service
 public class CourseGradeApplicationService {
 

@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.web.grade;
 
 import cn.intellijboy.demo.studentcourse.application.CourseGradeApplicationService;
@@ -8,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 成绩查询 REST 接口：GET /api/students/{id}/grades 按学生查成绩，GET /api/courses/{id}/grades 按课程查成绩。
+ */
 @RestController
 public class GradeQueryController {
 

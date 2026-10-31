@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.infrastructure;
 
 import cn.intellijboy.demo.studentcourse.domain.model.Course;
@@ -19,6 +24,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * 学生课程仓储集成测试：JPA 仓储对学生/课程/成绩的保存与查询，
+ * 断言同一学生同一课程重复保存成绩被数据库唯一约束拒绝、删除后查询为空。
+ */
 @SpringBootTest
 @DisplayName("学生课程仓储集成测试")
 class RepositoryIntegrationTest {

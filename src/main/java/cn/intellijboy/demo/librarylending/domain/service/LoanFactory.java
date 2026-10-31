@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.domain.service;
 
 import cn.intellijboy.demo.librarylending.domain.model.BookCopyId;

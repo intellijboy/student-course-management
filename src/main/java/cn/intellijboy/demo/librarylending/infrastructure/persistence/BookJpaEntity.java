@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.infrastructure.persistence;
 
 import jakarta.persistence.CascadeType;
@@ -10,6 +15,9 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 图书 JPA 实体：对应 books 表，持久化图书基础信息，并通过一对多级联持有其图书副本集合。
+ */
 @Entity
 @Table(name = "books")
 public class BookJpaEntity {

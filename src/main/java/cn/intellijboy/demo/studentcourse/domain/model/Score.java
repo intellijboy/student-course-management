@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.domain.model;
 
 import cn.intellijboy.demo.studentcourse.domain.exception.InvalidScoreException;

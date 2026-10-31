@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.web.book;
 
 import cn.intellijboy.demo.librarylending.application.CatalogApplicationService;
@@ -16,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 图书馆藏 REST 接口：路径 /api/books。POST 登记图书与馆藏副本（201），GET /{id} 查询馆藏状态与预约队列，GET 查询图书列表。
+ */
 @RestController
 @RequestMapping("/api/books")
 public class BookController {

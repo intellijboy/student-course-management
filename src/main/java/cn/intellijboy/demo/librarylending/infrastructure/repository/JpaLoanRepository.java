@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.infrastructure.repository;
 
 import cn.intellijboy.demo.librarylending.domain.model.BookCopyId;
@@ -12,6 +17,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 借阅记录仓库的 JPA 实现：通过 Spring Data 的 {@link SpringDataLoanRepository} 查询并保存借阅记录，并由 {@link LoanMapper} 完成领域模型与实体互转。
+ */
 @Repository
 public class JpaLoanRepository implements LoanRepository {
 

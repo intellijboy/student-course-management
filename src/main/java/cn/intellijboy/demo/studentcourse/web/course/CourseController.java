@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.web.course;
 
 import cn.intellijboy.demo.studentcourse.application.CourseApplicationService;
@@ -15,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 课程 REST 接口：路径 /api/courses。GET 查询列表，POST 创建课程（201），PUT /{id} 更新，DELETE /{id} 删除（204）。
+ */
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {

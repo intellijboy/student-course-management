@@ -1,9 +1,17 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.infrastructure.mapper;
 
 import cn.intellijboy.demo.studentcourse.domain.model.Course;
 import cn.intellijboy.demo.studentcourse.infrastructure.persistence.CourseJpaEntity;
 import org.springframework.stereotype.Component;
 
+/**
+ * 课程映射器：负责领域模型 {@link Course} 与 JPA 实体 {@link CourseJpaEntity} 之间的双向转换。
+ */
 @Component
 public class CourseMapper {
 

@@ -1,10 +1,15 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.librarylending.domain.event;
 
 import cn.intellijboy.demo.librarylending.domain.model.BookId;
 import cn.intellijboy.demo.librarylending.domain.model.ReaderId;
 
 /**
- * 预约转正（可借通知）领域事件。
+ * 预约转正（可借通知）领域事件：表示某预约转正、对应副本已可借，用于通知读者借阅。
  */
 public class ReservationPromotedEvent extends DomainEvent {
 

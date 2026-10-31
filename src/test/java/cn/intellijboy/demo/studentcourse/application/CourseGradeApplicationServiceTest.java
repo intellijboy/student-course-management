@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.application;
 
 import cn.intellijboy.demo.studentcourse.domain.exception.DuplicateGradeException;
@@ -20,6 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * CourseGradeApplicationService 应用层测试：成绩登记/查询/更新/删除，
+ * 断言重复登记被拒、越界（0-100 之外）分数被判 InvalidScoreException、删除后查询为空。
+ */
 @SpringBootTest
 @DisplayName("成绩应用服务测试")
 class CourseGradeApplicationServiceTest {

@@ -1,3 +1,8 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
 package cn.intellijboy.demo.studentcourse.web;
 
 import cn.intellijboy.demo.studentcourse.domain.exception.DuplicateGradeException;
@@ -12,6 +17,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
 
+/**
+ * 学生-课程模块全局异常处理：将领域与参数异常统一映射为 HTTP 状态码（资源不存在 404、业务/参数校验失败 400）与错误消息。
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
