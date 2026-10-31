@@ -1,0 +1,87 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
+package cn.intellijboy.interfaces.studentcourse.student;
+
+import cn.intellijboy.application.studentcourse.StudentApplicationService;
+import cn.intellijboy.domain.studentcourse.model.Student;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/**
+ * 学生 REST 接口：路径 /api/students。GET 查询列表，POST 创建学生（201），PUT /{id} 更新，DELETE /{id} 删除（204）。
+ */
+@RestController
+@RequestMapping("/api/students")
+public class StudentController {
+
+    private final StudentApplicationService studentApplicationService;
+
+    public StudentController(StudentApplicationService studentApplicationService) {
+        this.studentApplicationService = studentApplicationService;
+    }
+
+    /**
+     * 查询全部学生列表。
+     *
+     * @return 200 与学生列表
+     */
+    @GetMapping
+    public List<StudentView> list() {
+        return studentApplicationService.findAll().stream()
+                .map(this::toView)
+                .toList();
+    }
+
+    /**
+     * 创建学生。
+     *
+     * @param request 创建请求（name、email），id 由服务端生成
+     * @return 201 与新建学生
+     */
+    @PostMapping
+    public ResponseEntity<StudentView> create(@RequestBody StudentRequest request) {
+        Student student = studentApplicationService.create(request.name(), request.email());
+        return ResponseEntity.status(HttpStatus.CREATED).body(toView(student));
+    }
+
+    /**
+     * 更新指定 id 学生的姓名与邮箱。
+     *
+     * @param id     学生 id
+     * @param request 更新请求（name、email）
+     * @return 200 与更新后学生，id 不存在时返回 404
+     */
+    @PutMapping("/{id}")
+    public StudentView update(@PathVariable Long id, @RequestBody StudentRequest request) {
+        return toView(studentApplicationService.update(id, request.name(), request.email()));
+    }
+
+    /**
+     * 删除指定 id 的学生。
+     *
+     * @param id 学生 id
+     * @return 204，id 不存在时返回 404
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        studentApplicationService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    private StudentView toView(Student student) {
+        return new StudentView(student.getId(), student.getName(), student.getEmail().value());
+    }
+}

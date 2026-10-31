@@ -1,0 +1,16 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
+package cn.intellijboy.application.librarylending;
+
+import cn.intellijboy.domain.librarylending.model.ReaderId;
+
+import java.math.BigDecimal;
+
+/**
+ * 归还结果：逾期费用与触发的预约转正读者（若有）。
+ */
+public record ReturnResult(BigDecimal overdueFee, ReaderId promotedReaderId) {
+}

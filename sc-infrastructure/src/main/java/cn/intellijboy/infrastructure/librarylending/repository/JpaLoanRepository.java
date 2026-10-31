@@ -1,0 +1,66 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
+package cn.intellijboy.infrastructure.librarylending.repository;
+
+import cn.intellijboy.domain.librarylending.model.BookCopyId;
+import cn.intellijboy.domain.librarylending.model.Loan;
+import cn.intellijboy.domain.librarylending.model.ReaderId;
+import cn.intellijboy.domain.librarylending.repository.LoanRepository;
+import cn.intellijboy.infrastructure.librarylending.mapper.LoanMapper;
+import cn.intellijboy.infrastructure.librarylending.persistence.SpringDataLoanRepository;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * 借阅记录仓库的 JPA 实现：通过 Spring Data 的 {@link SpringDataLoanRepository} 查询并保存借阅记录，并由 {@link LoanMapper} 完成领域模型与实体互转。
+ */
+@Repository
+public class JpaLoanRepository implements LoanRepository {
+
+    private final SpringDataLoanRepository springDataRepository;
+    private final LoanMapper mapper;
+
+    public JpaLoanRepository(SpringDataLoanRepository springDataRepository, LoanMapper mapper) {
+        this.springDataRepository = springDataRepository;
+        this.mapper = mapper;
+    }
+
+    @Override
+    public Loan save(Loan loan) {
+        return mapper.toDomain(springDataRepository.save(mapper.toJpa(loan)));
+    }
+
+    @Override
+    public Optional<Loan> findById(Long id) {
+        return springDataRepository.findById(id).map(mapper::toDomain);
+    }
+
+    @Override
+    public Optional<Loan> findActiveByReaderAndCopy(ReaderId readerId, BookCopyId bookCopyId) {
+        return springDataRepository
+            .findFirstByReaderIdAndBookCopyIdAndReturnedAtIsNull(readerId.value(), bookCopyId.value())
+            .map(mapper::toDomain);
+    }
+
+    @Override
+    public List<Loan> findByReader(ReaderId readerId) {
+        return springDataRepository.findByReaderId(readerId.value()).stream().map(mapper::toDomain).toList();
+    }
+
+    @Override
+    public List<Loan> findActiveLoans() {
+        return springDataRepository.findByReturnedAtIsNull().stream().map(mapper::toDomain).toList();
+    }
+
+    @Override
+    public List<Loan> findOverdueLoans(LocalDate today) {
+        return springDataRepository.findByReturnedAtIsNullAndDueDateBefore(today).stream()
+            .map(mapper::toDomain).toList();
+    }
+}

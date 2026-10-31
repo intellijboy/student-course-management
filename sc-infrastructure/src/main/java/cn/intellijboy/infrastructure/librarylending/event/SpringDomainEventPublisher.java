@@ -1,0 +1,29 @@
+/*
+ * SPDX-License-Identifier: MIT
+ *
+ * Copyright (c) 2026 Intellijboy
+ */
+package cn.intellijboy.infrastructure.librarylending.event;
+
+import cn.intellijboy.domain.librarylending.event.DomainEvent;
+import cn.intellijboy.domain.librarylending.event.DomainEventPublisher;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
+
+/**
+ * 领域事件发布适配器：基于 Spring ApplicationEventPublisher 同步发布。
+ */
+@Component
+public class SpringDomainEventPublisher implements DomainEventPublisher {
+
+    private final ApplicationEventPublisher publisher;
+
+    public SpringDomainEventPublisher(ApplicationEventPublisher publisher) {
+        this.publisher = publisher;
+    }
+
+    @Override
+    public void publish(DomainEvent event) {
+        publisher.publishEvent(event);
+    }
+}
