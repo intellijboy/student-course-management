@@ -1,0 +1,18 @@
+# 测试专用配置：加载优先级高于 src/main/resources/application.yml（测试 classpath 在前，整体替代主配置）。
+# 测试库只建表结构（db/schema.sql），不载入演示数据（db/data.sql），保持空库以隔离各单元/集成测试
+# 对「假定空库、自行构造数据」的既有断言不影响。应用运行时（bootRun）仍使用主配置并加载完整种子数据。
+spring:
+  datasource:
+    url: jdbc:h2:mem:demo
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:db/schema.sql
+      data-locations: []
