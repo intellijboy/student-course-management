@@ -1,6 +1,6 @@
 # 06 CQRS 查询分离
 
-> 配套代码：`cn.intellijboy.demo.librarylending.application`
+> 配套代码：`cn.intellijboy.application.librarylending`（`sc-application` 模块）
 
 ## 为什么分离读与写
 

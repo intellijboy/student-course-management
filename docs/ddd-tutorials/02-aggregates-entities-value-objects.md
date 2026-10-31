@@ -1,6 +1,6 @@
 # 02 聚合根、实体与值对象
 
-> 配套代码：`cn.intellijboy.demo.librarylending.domain.model`
+> 配套代码：`cn.intellijboy.domain.librarylending.model`（`sc-domain` 模块）
 
 ## 聚合根与聚合边界
 

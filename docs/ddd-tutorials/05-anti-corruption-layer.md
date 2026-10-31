@@ -1,6 +1,6 @@
 # 05 防腐层与上下文集成
 
-> 配套代码：`cn.intellijboy.demo.librarylending.domain.acl`、`...infrastructure.acl`
+> 配套代码：`cn.intellijboy.domain.librarylending.acl`、`cn.intellijboy.infrastructure.librarylending.acl`（`sc-domain` / `sc-infrastructure` 模块）
 
 ## 为什么需要防腐层
 

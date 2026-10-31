@@ -1,6 +1,6 @@
 # 03 领域服务与工厂
 
-> 配套代码：`cn.intellijboy.demo.librarylending.domain.service`
+> 配套代码：`cn.intellijboy.domain.librarylending.service`（`sc-domain` 模块）
 
 ## 领域服务：不属于单个聚合的领域逻辑
 

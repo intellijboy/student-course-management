@@ -1,6 +1,6 @@
 # 07 应用服务与事务边界
 
-> 配套代码：`cn.intellijboy.demo.librarylending.application`
+> 配套代码：`cn.intellijboy.application.librarylending`（`sc-application` 模块）
 
 ## 应用服务的职责
 
@@ -46,7 +46,7 @@ public ReturnResult returnCopy(Long loanId, LocalDate today) {
 
 ## 接口适配器
 
-REST Controller（`web` 包）是应用服务的入站适配器：接收请求 DTO，转换为领域对象（`ReaderId`/`BookId`），调用应用服务，再把结果转回响应 DTO。领域异常由 `LibraryLendingExceptionHandler` 统一映射为 HTTP 状态。
+REST Controller（`sc-interfaces` 模块的 `interfaces` 包）是应用服务的入站适配器：接收请求 DTO，转换为领域对象（`ReaderId`/`BookId`），调用应用服务，再把结果转回响应 DTO。领域异常由 `interfaces` 包的 `LibraryLendingExceptionHandler` 统一映射为 HTTP 状态。
 
 ## 小结
 

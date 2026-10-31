@@ -1,6 +1,6 @@
 # 01 限界上下文与分层/六边形架构
 
-> 配套代码：`src/main/java/cn/intellijboy/demo/librarylending/`
+> 配套代码：`cn.intellijboy.domain.librarylending`（`sc-domain` 模块）
 
 ## 什么是限界上下文
 
@@ -17,7 +17,7 @@
 
 ```text
 librarylending
-├── web/            inbound 适配器：REST controller、DTO
+├── interfaces/     inbound 适配器：REST controller、DTO
 ├── application/    应用服务（用例编排、事务边界）+ CQRS 查询服务
 ├── domain/         核心（无框架依赖）
 │   ├── model/      聚合根、实体、值对象
@@ -28,7 +28,7 @@ librarylending
 └── infrastructure/ outbound 适配器：JPA 实现、事件适配器、防腐层适配器
 ```
 
-依赖规则：`web → application → domain ← infrastructure`。
+依赖规则：`interfaces → application → domain ← infrastructure`。
 
 - `domain` 只定义**接口（端口）**：`BookRepository`、`LoanRepository`、`DomainEventPublisher`、`ReaderCatalogGateway`。
 - `infrastructure` 实现端口：`JpaBookRepository`、`SpringDomainEventPublisher`、`ReaderCatalogGatewayAdapter`。
@@ -51,14 +51,14 @@ public class JpaBookRepository implements BookRepository { ... }
 
 六边形架构把应用划分为"内部（领域+应用）"与"外部（接口、持久化、外部系统）"：
 
-- **入站端口**：应用服务接口（如 `LoanApplicationService`），REST Controller 是其适配器。
+- **入站端口**：应用服务接口（如 `LoanApplicationService`），`interfaces` 层的 REST Controller 是其适配器。
 - **出站端口**：仓储接口、事件发布端口、防腐层网关，JPA/Spring/防腐层适配器是其实现。
 
 核心收益：替换技术实现（例如 JPA 换 MyBatis、Spring 事件换 Kafka）不影响领域与用例层——只需替换对应适配器。
 
 ## 组合根
 
-`LibraryLendingDomainConfig`（application 包）负责把纯领域服务（`BorrowingPolicy`、`BookFactory`、`LoanFactory`、`ReservationPromotionService`）注册为 Spring bean，保持领域层无框架依赖。
+`LibraryLendingDomainConfig`（`sc-application` 模块 `application` 包）负责把纯领域服务（`BorrowingPolicy`、`BookFactory`、`LoanFactory`、`ReservationPromotionService`）注册为 Spring bean，保持领域层无框架依赖。
 
 ## 小结
 

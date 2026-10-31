@@ -1,6 +1,6 @@
 # 04 领域事件与事件驱动
 
-> 配套代码：`cn.intellijboy.demo.librarylending.domain.event`
+> 配套代码：`cn.intellijboy.domain.librarylending.event`（`sc-domain` 模块）
 
 ## 领域事件：描述已发生的事实
 
