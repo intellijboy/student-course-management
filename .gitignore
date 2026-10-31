@@ -44,12 +44,7 @@ docs/knowledge
 
 # >>> teamai tool dirs (managed by teamai) >>>
 .teamai/
-.claude/
-.opencode/
-# <<< teamai tool dirs <<<
-
-# >>> teamai tool dirs (managed by teamai) >>>
-.teamai/
+.worktree/
 .claude/
 .opencode/
 # <<< teamai tool dirs <<<
