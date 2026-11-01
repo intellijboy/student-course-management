@@ -23,6 +23,22 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
+// 安全修复：按 group 统一强制 Security-relevant 依赖版本，覆盖 Boot 自带 BOM 的旧版本。
+// 之所以不用 mavenBom 导入覆盖——Spring Boot 插件会在本闭包之后把其 BOM 作为最高优先级追加，
+// 使任何手写 import 都被压回，故用 resolutionStrategy 按 group 统管（不逐个 artifact 声明）：
+// - tools.jackson.core → 3.1.8：修复 CVE-2026-110879（Jackson 3 反序列化，Boot BOM 仍带 3.1.7）
+// - ch.qos.logback     → 1.6.5：修复 CVE-2026-19880（Logback 路径穿越，Boot BOM 仍带 1.5.38）
+dependencyManagement {
+    resolutionStrategy {
+        eachDependency {
+            when (requested.group) {
+                "tools.jackson.core" -> useVersion("3.1.8")
+                "ch.qos.logback" -> useVersion("1.6.5")
+            }
+        }
+    }
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
