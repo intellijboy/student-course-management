@@ -20,8 +20,8 @@
 
 ## 4. 收尾
 
-- [ ] 4.1 提交本次变更（Conventional Commits，含 `Co-Authored-By` 尾注），验证 `git status` 工作区干净
-- [ ] 4.2 推送并观察 `.github/workflows/packaging.yml` 三平台打包矩阵，验证各 runner 构建通过且产物体积缩小
+- [x] 4.1 提交本次变更（Conventional Commits，含 `Co-Authored-By` 尾注），验证 `git status` 工作区干净
+- [x] 4.2 推送并观察 `.github/workflows/packaging.yml` 三平台打包矩阵，验证各 runner 构建通过且产物体积缩小
 
 ## Workflow follow-up
 
