@@ -3,6 +3,8 @@ name: Portable Distribution Packaging
 # 便携分发包 CI 矩阵：Windows/Linux/macOS 三平台分别构建自带 Java 运行时的便携分发包，
 # 产出 <app>-<os>-<arch>.zip|tar.gz 并上传为构建产物。
 # 打 tag（v*）或手动触发时，额外将三平台产物发布到 GitHub Releases。
+# 注意：多模块化后 javapackager 插件位于 sc-main 模块，产物输出到 sc-main/build/，
+# 文件名前缀为模块名 sc-main，与旧的根目录单模块输出路径/命名不同。
 
 on:
   push:
@@ -48,26 +50,29 @@ jobs:
       - name: Build portable distribution
         shell: bash
         run: |
+          # 多模块后 javapackager 的 package 任务只存在于 sc-main 模块，需显式指定
           if [ "$RUNNER_OS" = "Windows" ]; then
-            ./gradlew.bat clean package
+            ./gradlew.bat clean :sc-main:package
           else
             chmod +x gradlew
-            ./gradlew clean package
+            ./gradlew clean :sc-main:package
           fi
 
       - name: Rename archive to <app>-<os>-<arch>.<ext>
         shell: bash
         run: |
           set -euo pipefail
-          APP=student-course-management
+          # 多模块后 javapackager 产物输出到 sc-main/build/，文件名前缀为模块名 sc-main
+          APP=sc-main
+          ARTIFACT_DIR=sc-main/build
           PLATFORM=${{ matrix.os-name }}
           EXT=${{ matrix.ext }}
           if [ "$EXT" = "zip" ]; then
-            FILE=$(ls build/${APP}-*-${PLATFORM}.zip | head -1)
+            FILE=$(ls ${ARTIFACT_DIR}/${APP}-*-${PLATFORM}.zip | head -1)
           else
-            FILE=$(ls build/${APP}-*-${PLATFORM}.tar.gz | head -1)
+            FILE=$(ls ${ARTIFACT_DIR}/${APP}-*-${PLATFORM}.tar.gz | head -1)
           fi
-          DEST="build/${APP}-${PLATFORM}-${{ matrix.arch }}.${EXT}"
+          DEST="${ARTIFACT_DIR}/${APP}-${PLATFORM}-${{ matrix.arch }}.${EXT}"
           mv "$FILE" "$DEST"
           echo "artifact=$DEST" >> "$GITHUB_ENV"
 
@@ -110,6 +115,6 @@ jobs:
           tag_name: ${{ steps.tag.outputs.tag }}
           name: ${{ steps.tag.outputs.tag }}
           files: |
-            dist/*/*.zip
-            dist/*/*.tar.gz
+            dist/**/*.zip
+            dist/**/*.tar.gz
           fail_on_unmatched_files: true
