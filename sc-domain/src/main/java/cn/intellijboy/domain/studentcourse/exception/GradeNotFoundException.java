@@ -8,14 +8,14 @@ package cn.intellijboy.domain.studentcourse.exception;
 /**
  * 成绩不存在。
  */
-public class NotFoundException extends RuntimeException {
+public class GradeNotFoundException extends RuntimeException {
 
     /**
-     * 创建异常实例。
+     * 创建成绩不存在异常。
      *
-     * @param message 异常信息
+     * @param message 异常描述信息
      */
-    public NotFoundException(String message) {
+    public GradeNotFoundException(String message) {
         super(message);
     }
 }

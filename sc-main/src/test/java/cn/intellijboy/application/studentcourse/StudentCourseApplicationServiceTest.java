@@ -5,7 +5,8 @@
  */
 package cn.intellijboy.application.studentcourse;
 
-import cn.intellijboy.domain.studentcourse.exception.NotFoundException;
+import cn.intellijboy.domain.studentcourse.exception.CourseNotFoundException;
+import cn.intellijboy.domain.studentcourse.exception.StudentNotFoundException;
 import cn.intellijboy.domain.studentcourse.model.Course;
 import cn.intellijboy.domain.studentcourse.model.Student;
 import org.junit.jupiter.api.DisplayName;
@@ -105,22 +106,22 @@ class StudentCourseApplicationServiceTest {
     }
 
     @Test
-    @DisplayName("更新不存在的学生时抛出 NotFoundException")
+    @DisplayName("更新不存在的学生时抛出 StudentNotFoundException")
     void shouldThrowWhenUpdatingNonExistentStudent() {
         long missingId = 100_000_000L;
 
-        NotFoundException ex = assertThrows(NotFoundException.class,
+        StudentNotFoundException ex = assertThrows(StudentNotFoundException.class,
             () -> studentService.update(missingId, "不存在", "nobody@example.com"));
 
         assertTrue(ex.getMessage().contains("学生不存在"));
     }
 
     @Test
-    @DisplayName("删除不存在的课程时抛出 NotFoundException")
+    @DisplayName("删除不存在的课程时抛出 CourseNotFoundException")
     void shouldThrowWhenDeletingNonExistentCourse() {
         long missingId = 100_000_000L;
 
-        NotFoundException ex = assertThrows(NotFoundException.class,
+        CourseNotFoundException ex = assertThrows(CourseNotFoundException.class,
             () -> courseService.delete(missingId));
 
         assertTrue(ex.getMessage().contains("课程不存在"));

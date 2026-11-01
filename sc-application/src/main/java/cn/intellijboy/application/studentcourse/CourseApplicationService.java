@@ -6,7 +6,7 @@
 package cn.intellijboy.application.studentcourse;
 
 import cn.intellijboy.common.StringUtils;
-import cn.intellijboy.domain.studentcourse.exception.NotFoundException;
+import cn.intellijboy.domain.studentcourse.exception.CourseNotFoundException;
 import cn.intellijboy.domain.studentcourse.model.Course;
 import cn.intellijboy.domain.studentcourse.repository.CourseRepository;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class CourseApplicationService {
     @Transactional
     public Course update(Long id, String name, Integer credits) {
         Course course = courseRepository.findById(id)
-            .orElseThrow(() -> new NotFoundException("课程不存在: id=" + id));
+            .orElseThrow(() -> new CourseNotFoundException("课程不存在: id=" + id));
         course.updateName(name);
         course.updateCredits(credits);
         return courseRepository.save(course);
@@ -55,7 +55,7 @@ public class CourseApplicationService {
     @Transactional
     public void delete(Long id) {
         if (courseRepository.findById(id).isEmpty()) {
-            throw new NotFoundException("课程不存在: id=" + id);
+            throw new CourseNotFoundException("课程不存在: id=" + id);
         }
         courseRepository.deleteById(id);
     }

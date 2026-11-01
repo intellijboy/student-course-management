@@ -7,7 +7,7 @@ package cn.intellijboy.interfaces.studentcourse.grade;
 
 import cn.intellijboy.application.studentcourse.CourseGradeApplicationService;
 import cn.intellijboy.domain.studentcourse.exception.InvalidScoreException;
-import cn.intellijboy.domain.studentcourse.exception.NotFoundException;
+import cn.intellijboy.domain.studentcourse.exception.GradeNotFoundException;
 import cn.intellijboy.domain.studentcourse.model.CourseGrade;
 import cn.intellijboy.domain.studentcourse.repository.CourseGradeRepository;
 import org.springframework.http.HttpStatus;
@@ -78,7 +78,7 @@ public class CourseGradeController {
 
     private void requireExists(Long id) {
         if (courseGradeRepository.findById(id).isEmpty()) {
-            throw new NotFoundException("成绩不存在: id=" + id);
+            throw new GradeNotFoundException("成绩不存在: id=" + id);
         }
     }
 
