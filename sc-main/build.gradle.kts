@@ -48,9 +48,19 @@ javapackager {
     // JavaPackager 生成的启动命令（launch4j exe / 平台脚本）均以 -cp 方式启动。
     // 因此启动入口采用 fat jar 外层的 JarLauncher，由其从 MANIFEST 的 Start-Class 加载应用。
     mainClass("org.springframework.boot.loader.launch.JarLauncher")
-    // 便携分发包：自带全量运行时（不裁剪 jdeps 模块，避免反射/ServiceLoader 缺模块）
+    // 便携分发包：自带运行时，采用 jdeps 裁剪的最小运行时并启用镜像压缩（瘦身）
     bundleJre(true)
-    customizedJre(false)
+    customizedJre(true)
+    // fat jar 嵌套依赖使 jdeps 静态分析漏掉反射/ServiceLoader 模块，显式补齐运行所需 JDK 模块
+    additionalModules(
+        listOf(
+            "java.compiler", "java.desktop", "java.logging", "java.naming", "java.sql", "java.xml", "java.management",
+            "java.prefs", "java.instrument", "java.security.jgss", "java.security.sasl",
+            "jdk.crypto.ec", "jdk.unsupported", "jdk.naming.rmi", "java.net.http",
+        )
+    )
+    // JDK 21 的 jlink 不再自动压缩，追加 zip-6 压缩级，显著缩小 JRE 镜像体积
+    additionalJlinkArgs(listOf("--compress=zip-6"))
     // 非目标：不生成原生安装器（exe/msi/deb/rpm/dmg）
     generateInstaller(false)
     // 平台压缩包：Windows 产 zip，Linux/macOS 产 tar.gz
