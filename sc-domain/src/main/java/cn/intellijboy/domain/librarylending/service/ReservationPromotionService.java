@@ -5,7 +5,7 @@
  */
 package cn.intellijboy.domain.librarylending.service;
 
-import cn.intellijboy.domain.librarylending.event.DomainEventPublisher;
+import cn.intellijboy.domain.event.DomainEventPublisher;
 import cn.intellijboy.domain.librarylending.event.ReservationPromotedEvent;
 import cn.intellijboy.domain.librarylending.model.BookId;
 import cn.intellijboy.domain.librarylending.model.Reservation;

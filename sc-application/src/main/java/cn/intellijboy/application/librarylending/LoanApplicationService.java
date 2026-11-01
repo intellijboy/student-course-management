@@ -8,7 +8,7 @@ package cn.intellijboy.application.librarylending;
 import cn.intellijboy.domain.librarylending.acl.ReaderCatalogGateway;
 import cn.intellijboy.domain.librarylending.event.BookLoanedEvent;
 import cn.intellijboy.domain.librarylending.event.BookReturnedEvent;
-import cn.intellijboy.domain.librarylending.event.DomainEventPublisher;
+import cn.intellijboy.domain.event.DomainEventPublisher;
 import cn.intellijboy.domain.librarylending.event.LoanOverdueEvent;
 import cn.intellijboy.domain.librarylending.event.ReservationCreatedEvent;
 import cn.intellijboy.domain.librarylending.exception.BookCopyUnavailableException;

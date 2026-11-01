@@ -5,8 +5,8 @@
  */
 package cn.intellijboy.infrastructure.librarylending.event;
 
-import cn.intellijboy.domain.librarylending.event.DomainEvent;
-import cn.intellijboy.domain.librarylending.event.DomainEventPublisher;
+import cn.intellijboy.domain.event.DomainEvent;
+import cn.intellijboy.domain.event.DomainEventPublisher;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 

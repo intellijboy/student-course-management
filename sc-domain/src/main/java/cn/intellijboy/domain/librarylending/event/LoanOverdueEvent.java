@@ -5,13 +5,14 @@
  */
 package cn.intellijboy.domain.librarylending.event;
 
+import cn.intellijboy.domain.event.DomainEvent;
 import cn.intellijboy.domain.librarylending.model.BookCopyId;
 import cn.intellijboy.domain.librarylending.model.ReaderId;
 
 /**
  * 借阅逾期领域事件：表示某副本的借阅已逾期（超过应还日期仍未归还），触发逾期处理流程。
  */
-public class LoanOverdueEvent extends DomainEvent {
+public class LoanOverdueEvent implements DomainEvent {
 
     private final ReaderId readerId;
     private final BookCopyId bookCopyId;

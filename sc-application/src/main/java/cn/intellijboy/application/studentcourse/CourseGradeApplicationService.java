@@ -5,7 +5,7 @@
  */
 package cn.intellijboy.application.studentcourse;
 
-import cn.intellijboy.domain.studentcourse.event.GradeEventPublisher;
+import cn.intellijboy.domain.event.DomainEventPublisher;
 import cn.intellijboy.domain.studentcourse.event.GradeRegisteredEvent;
 import cn.intellijboy.domain.studentcourse.event.GradeUpdatedEvent;
 import cn.intellijboy.domain.studentcourse.exception.DuplicateGradeException;
@@ -23,10 +23,10 @@ import java.util.List;
 public class CourseGradeApplicationService {
 
     private final CourseGradeRepository courseGradeRepository;
-    private final GradeEventPublisher eventPublisher;
+    private final DomainEventPublisher eventPublisher;
 
     public CourseGradeApplicationService(CourseGradeRepository courseGradeRepository,
-                                         GradeEventPublisher eventPublisher) {
+                                         DomainEventPublisher eventPublisher) {
         this.courseGradeRepository = courseGradeRepository;
         this.eventPublisher = eventPublisher;
     }

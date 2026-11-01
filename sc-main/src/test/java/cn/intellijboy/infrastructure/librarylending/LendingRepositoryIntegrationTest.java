@@ -6,8 +6,8 @@
 package cn.intellijboy.infrastructure.librarylending;
 
 import cn.intellijboy.domain.librarylending.event.BookLoanedEvent;
-import cn.intellijboy.domain.librarylending.event.DomainEvent;
-import cn.intellijboy.domain.librarylending.event.DomainEventPublisher;
+import cn.intellijboy.domain.event.DomainEvent;
+import cn.intellijboy.domain.event.DomainEventPublisher;
 import cn.intellijboy.domain.librarylending.model.Book;
 import cn.intellijboy.domain.librarylending.model.BookCopyId;
 import cn.intellijboy.domain.librarylending.model.BookCopyStatus;

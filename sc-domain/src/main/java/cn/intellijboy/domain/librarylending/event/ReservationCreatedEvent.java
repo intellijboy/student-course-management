@@ -5,13 +5,14 @@
  */
 package cn.intellijboy.domain.librarylending.event;
 
+import cn.intellijboy.domain.event.DomainEvent;
 import cn.intellijboy.domain.librarylending.model.BookId;
 import cn.intellijboy.domain.librarylending.model.ReaderId;
 
 /**
  * 预约创建领域事件：表示某读者已为某图书创建了一条预约。
  */
-public class ReservationCreatedEvent extends DomainEvent {
+public class ReservationCreatedEvent implements DomainEvent {
 
     private final ReaderId readerId;
     private final BookId bookId;

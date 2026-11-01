@@ -5,13 +5,14 @@
  */
 package cn.intellijboy.domain.librarylending.event;
 
+import cn.intellijboy.domain.event.DomainEvent;
 import cn.intellijboy.domain.librarylending.model.BookId;
 import cn.intellijboy.domain.librarylending.model.ReaderId;
 
 /**
  * 预约转正（可借通知）领域事件：表示某预约转正、对应副本已可借，用于通知读者借阅。
  */
-public class ReservationPromotedEvent extends DomainEvent {
+public class ReservationPromotedEvent implements DomainEvent {
 
     private final ReaderId readerId;
     private final BookId bookId;

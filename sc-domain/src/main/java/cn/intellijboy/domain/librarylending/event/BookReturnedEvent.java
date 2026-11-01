@@ -5,13 +5,14 @@
  */
 package cn.intellijboy.domain.librarylending.event;
 
+import cn.intellijboy.domain.event.DomainEvent;
 import cn.intellijboy.domain.librarylending.model.BookCopyId;
 import cn.intellijboy.domain.librarylending.model.ReaderId;
 
 /**
  * 归还领域事件：表示图书已归还。
  */
-public class BookReturnedEvent extends DomainEvent {
+public class BookReturnedEvent implements DomainEvent {
 
     private final ReaderId readerId;
     private final BookCopyId bookCopyId;

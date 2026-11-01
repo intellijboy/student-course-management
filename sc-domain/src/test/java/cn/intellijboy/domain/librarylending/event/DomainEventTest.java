@@ -5,6 +5,8 @@
  */
 package cn.intellijboy.domain.librarylending.event;
 
+import cn.intellijboy.domain.event.DomainEvent;
+import cn.intellijboy.domain.event.DomainEventPublisher;
 import cn.intellijboy.domain.librarylending.model.BookCopyId;
 import cn.intellijboy.domain.librarylending.model.BookId;
 import cn.intellijboy.domain.librarylending.model.ReaderId;
@@ -15,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -27,12 +28,11 @@ class DomainEventTest {
     private final ReaderId reader = new ReaderId(1L);
 
     @Test
-    @DisplayName("领域事件携带关联数据与发生时间")
-    void eventsCarryDataAndTimestamp() {
+    @DisplayName("领域事件携带关联数据")
+    void eventsCarryData() {
         BookLoanedEvent loaned = new BookLoanedEvent(reader, new BookCopyId(10L));
         assertEquals(reader, loaned.getReaderId());
         assertEquals(new BookCopyId(10L), loaned.getBookCopyId());
-        assertNotNull(loaned.getOccurredAt());
 
         BookReturnedEvent returned = new BookReturnedEvent(reader, new BookCopyId(10L));
         assertEquals(new BookCopyId(10L), returned.getBookCopyId());
