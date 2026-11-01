@@ -21,7 +21,7 @@ sc-infrastructure/  JPA 实现 / 事件适配器 / 防腐层适配器
 sc-interfaces/      REST 适配器（原 web 层）
 │   cn.intellijboy.interfaces.librarylending/  book/ loan/ reservation/（Controller + DTO）
 │   cn.intellijboy.interfaces.studentcourse/
-sc-webapp/          装配模块：Spring Boot 启动类 cn.intellijboy.StudentCourseManagementApplication
+sc-main/            装配模块：Spring Boot 启动类 cn.intellijboy.StudentCourseManagementApplication
 ```
 
 ## 按教程阅读路径
@@ -44,9 +44,9 @@ sc-webapp/          装配模块：Spring Boot 启动类 cn.intellijboy.StudentC
 | `sc-domain/src/test/.../domain/librarylending/service/BorrowingPolicyAndFactoryTest` | 领域服务与工厂 |
 | `sc-application/src/test/.../application/librarylending/LoanApplicationServiceTest` | 借阅/归还/预约/转正/逾期/防腐层（内存 stub） |
 | `sc-application/src/test/.../application/librarylending/LendingQueryServiceTest` | 读模型查询与统计 |
-| `sc-webapp/src/test/.../infrastructure/librarylending/LendingRepositoryIntegrationTest` | JPA 读写与事件发布 |
-| `sc-webapp/src/test/.../interfaces/librarylending/LibraryLendingControllerTest` | REST 接口（MockMvc） |
-| `sc-webapp/src/test/.../application/studentcourse/GradeEventPublishTest` | studentcourse 成绩事件发布示范 |
+| `sc-main/src/test/.../infrastructure/librarylending/LendingRepositoryIntegrationTest` | JPA 读写与事件发布 |
+| `sc-main/src/test/.../interfaces/librarylending/LibraryLendingControllerTest` | REST 接口（MockMvc） |
+| `sc-main/src/test/.../application/studentcourse/GradeEventPublishTest` | studentcourse 成绩事件发布示范 |
 
 ## 运行与验证
 
@@ -54,7 +54,7 @@ sc-webapp/          装配模块：Spring Boot 启动类 cn.intellijboy.StudentC
 # 运行全部测试（多模块根目录执行，覆盖领域/应用/基础设施/接口，110+ 项）
 ./gradlew test
 
-# 启动应用并访问图书借阅接口（装配模块 sc-webapp）
+# 启动应用并访问图书借阅接口（装配模块 sc-main）
 ./gradlew bootRun
 # POST /api/books          登记图书（title/author/copyCount）
 # POST /api/loans          借阅（readerId/bookId，readerId 复用学生）

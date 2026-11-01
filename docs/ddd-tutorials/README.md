@@ -17,5 +17,5 @@
 
 ## 前置阅读
 
-- 工程为 `sc-` 前缀的多模块构建（`sc-common`/`sc-domain`/`sc-application`/`sc-infrastructure`/`sc-interfaces`/`sc-webapp`），每个限界上下文按 `interfaces → application → domain ← infrastructure` 分层：领域层在 `sc-domain`、接口层在 `sc-interfaces`、装配入口在 `sc-webapp`；领域层不依赖框架。
+- 工程为 `sc-` 前缀的多模块构建（`sc-common`/`sc-domain`/`sc-application`/`sc-infrastructure`/`sc-interfaces`/`sc-main`），每个限界上下文按 `interfaces → application → domain ← infrastructure` 分层：领域层在 `sc-domain`、接口层在 `sc-interfaces`、装配入口在 `sc-main`；领域层不依赖框架。
 - 在工程根目录运行 `./gradlew test` 可执行全部示例测试；`./gradlew bootRun` 可启动应用访问 `/api/books`、`/api/loans` 等接口。
